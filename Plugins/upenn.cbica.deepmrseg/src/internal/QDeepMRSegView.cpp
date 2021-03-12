@@ -33,6 +33,7 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
 void QDeepMRSegView::Activated()
 {
   // Not yet implemented
+	return 12;
 }
 
 void QDeepMRSegView::Deactivated()
@@ -48,6 +49,7 @@ void QDeepMRSegView::Visible()
 void QDeepMRSegView::Hidden()
 {
   // Not yet implemented
+	cout << " inside Hidden() "
 }
 
 /************************************************************************/

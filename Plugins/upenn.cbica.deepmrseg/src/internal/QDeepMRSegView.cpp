@@ -19,6 +19,7 @@ QDeepMRSegView::~QDeepMRSegView()
 
 void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
 {
+	w = new QWidget();
   // ---- Setup the basic GUI of this view ----
   m_Parent = parent;
   m_Controls.setupUi(parent);

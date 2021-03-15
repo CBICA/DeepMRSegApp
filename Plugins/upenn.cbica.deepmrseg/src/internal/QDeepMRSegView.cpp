@@ -19,8 +19,6 @@ QDeepMRSegView::~QDeepMRSegView()
 
 void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
 {
-	w = new QWidget();
-
   // ---- Setup the basic GUI of this view ----
   m_Parent = parent;
   m_Controls.setupUi(parent);
@@ -33,7 +31,6 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
 void QDeepMRSegView::Activated()
 {
   // Not yet implemented
-	return 12;
 }
 
 void QDeepMRSegView::Deactivated()
@@ -49,7 +46,6 @@ void QDeepMRSegView::Visible()
 void QDeepMRSegView::Hidden()
 {
   // Not yet implemented
-	cout << " inside Hidden() "
 }
 
 /************************************************************************/

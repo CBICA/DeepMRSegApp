@@ -51,18 +51,12 @@ protected:
 
   void InitializeListeners();
 
-  int Dummy()
-  {
-	  cout << " Dummy "
-  }
-
   /// \brief the Qt parent of our GUI (NOT of this object)
   QWidget *m_Parent;
 
   /// \brief Qt GUI file
   Ui::QDeepMRSegControls m_Controls;
 
-  QWidget *w;
 };
 
 #endif // ! QDeepMRSegView_h

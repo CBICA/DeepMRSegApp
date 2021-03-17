@@ -57,6 +57,7 @@ protected:
   /// \brief Qt GUI file
   Ui::QDeepMRSegControls m_Controls;
 
+
 };
 
 #endif // ! QDeepMRSegView_h

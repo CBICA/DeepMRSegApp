@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+  <extension point="org.blueberry.ui.views">
+
+    <view id="upenn.cbica.deepmrseg.view"
+      name="DeepMRSeg"
+      category="CBICA"
+      icon="resources/icon1.svg"
+      class="QDeepMRSegView" />
+
+  </extension>
+  
+</plugin>

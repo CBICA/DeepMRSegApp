@@ -85,7 +85,6 @@ void DeepMRSegMediator::Update()
 		//get image back from python
 		m_LastOutput = m_PythonService->CopySimpleItkImageFromPython("out_image");
 	}
-
 }
 
 mitk::Image::Pointer DeepMRSegMediator::GetOutput()

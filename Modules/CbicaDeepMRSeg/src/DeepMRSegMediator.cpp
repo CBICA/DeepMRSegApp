@@ -26,7 +26,7 @@ DeepMRSegMediator::DeepMRSegMediator()
 	mitk::IPythonService::ForceLoadModule();
 
 	// Remove existing entries from path
-// This ensures only dirs we explicitly allow will be found
+    // This ensures only dirs we explicitly allow will be found
 	m_PythonService->Execute("import sys", mitk::IPythonService::SINGLE_LINE_COMMAND);
 	//m_PythonService->Execute("sys.path = []", mitk::IPythonService::SINGLE_LINE_COMMAND);
 
@@ -35,8 +35,6 @@ DeepMRSegMediator::DeepMRSegMediator()
 	{
 		LocatePythonFileDir();
 	}
-
-	//register path: C:\myinstalls\anaconda3\envs\testpy3\Lib\site-packages to find tensorflow
 
 	// Add to path first just in case.
 	RegisterResourceDir(pythonFilesDirPath);
@@ -57,18 +55,11 @@ void DeepMRSegMediator::SetInput(mitk::Image::Pointer inImagePtr)
 
 void DeepMRSegMediator::Update()
 {
-	////load python service
-	//us::ModuleContext* context = us::GetModuleContext();
-	//us::ServiceReference<mitk::IPythonService> m_PythonServiceRef = context->GetServiceReference<mitk::IPythonService>();
-	//mitk::IPythonService* m_PythonService = dynamic_cast<mitk::IPythonService*> (context->GetService<mitk::IPythonService>(m_PythonServiceRef));
-	//mitk::IPythonService::ForceLoadModule();
-
 	// transfer input image to python
 	m_PythonService->CopyToPythonAsSimpleItkImage(m_InputPtr, "in_image");
 
 	//read script into QString
 	QString data;
-	//QString pythonScriptName(":/QExamplePython/invertImage.py");
 	QString pythonScriptName(":/QExamplePython/DeepMRSeg/deepmrseg_test.py");
 	QFile file(pythonScriptName);
 	if (!file.open(QIODevice::ReadOnly))
@@ -244,18 +235,8 @@ void DeepMRSegMediator::RunSampleScript()
 	//std::string resultFromPython = m_PythonService->GetVariable("CAPTK_RESULT_STRING");
 	//MITK_INFO << "Result from Python: " + resultFromPython;
 
-	//// Example: Set a variable in Python generated in C++. 
-	//// TODO: Replace this with a convenience function...
-	//int someCppGeneratedValue = 42;
-	//QString passVarToPythonCommand = QString("var_from_cpp = ")
-	//	+ QString::number(someCppGeneratedValue);
-	//// String manipulation to do this can get a little ugly... but it is doable.
-	//// We can define some utility functions for this sort of thing.
-	//m_PythonService->Execute(passVarToPythonCommand.toStdString(),
-	//	mitk::IPythonService::SINGLE_LINE_COMMAND);
 	//// Maybe we could modify this to return a status string
 
-	//// See ProcessImageInPython for an example of how to pass images back and forth.
 }
 } // end namespace captk
 

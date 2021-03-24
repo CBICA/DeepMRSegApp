@@ -15,20 +15,14 @@
 #include <usModuleContext.h>
 
 namespace captk {
-/** \class Example Inverter
- *  \brief Workshop Example Inverter Module API
- *  This is a simple module to show how modules can be invoked from plugins.
- *  This class acts as a wrapper for the ITK filter.
+/** \class DeepMRSegMediator
+ *  \brief Mediator for Python based DeepMRSeg application
  */
 class MITKCBICADEEPMRSEG_EXPORT DeepMRSegMediator
 {
-	/** \brief  This class is basically a filter wrapper, so
-		 * we COULD inherit from mitk::ImageToImageFilter.
-		 * While this would be better design, there is some code level overhead,
-		 * and that would distract from the point of this example.
-		 * So we'll keep it simpler (and hopefully clearer) by just using a
-		 * few familiar functions.
-		 */
+	/** \brief  This class is basically a mediator for Python based DeepMRSeg application.
+		 * It also sets up the necessary python service and environment
+	*/
 public:
 	DeepMRSegMediator();
 

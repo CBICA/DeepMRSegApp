@@ -31,6 +31,9 @@ protected slots:
   /** \brief "Do Stuff" Button clicked slot */
   void OnDoStuffButtonClicked();
 
+  /** \brief "Run Script" Button clicked slot */
+  void OnRunScriptClicked();
+
 protected:
 
   // reimplemented from QmitkAbstractView

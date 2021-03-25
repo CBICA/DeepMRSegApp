@@ -14,7 +14,7 @@
 #include <mitkIPythonService.h>
 #include <usModuleContext.h>
 
-namespace captk {
+
 /** \class DeepMRSegMediator
  *  \brief Mediator for Python based DeepMRSeg application
  */
@@ -57,8 +57,5 @@ protected:
 
 	std::string LocatePythonFileDir();
 };
-
-
-}
 
 #endif // ! DeepMRSegMediator_h

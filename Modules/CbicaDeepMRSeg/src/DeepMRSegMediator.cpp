@@ -12,7 +12,6 @@
 #include <mitkIPythonService.h>
 #include <usModuleContext.h>
 
-namespace captk {
 
 DeepMRSegMediator::DeepMRSegMediator()
 {
@@ -237,5 +236,5 @@ void DeepMRSegMediator::RunSampleScript()
 	//// Maybe we could modify this to return a status string
 
 }
-} // end namespace captk
+
 

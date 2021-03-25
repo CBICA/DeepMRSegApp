@@ -262,6 +262,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QPushButton" name="pushButtonRunScript">
+     <property name="text">
+      <string>Run Script</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -285,6 +292,7 @@
  </customwidgets>
  <resources>
   <include location="../../../../../InteractiveSegmentation/Plugins/upenn.cbica.captk.interactivesegmentation/resources/captkinteractivesegmentation.qrc"/>
+  <include location="../../../../Modules/CbicaDeepMRSeg/resources/QExamplePython.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>460</width>
-    <height>539</height>
+    <height>560</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -65,92 +65,31 @@
       <string>Parameters</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="8" column="0">
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>XY Width</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string># classes</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="lineEdit_2"/>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>Prep</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="label_10">
-        <property name="text">
-         <string>Ressize</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLineEdit" name="lineEdit_6"/>
-      </item>
-      <item row="3" column="2">
+      <item row="2" column="3">
        <widget class="QPushButton" name="pushButton_2">
         <property name="text">
-         <string>PushButton</string>
+         <string>Browse</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
-       <widget class="QLineEdit" name="lineEdit_4"/>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="label_11">
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_PatientImage">
         <property name="text">
-         <string>Reorient</string>
+         <string>Reference Image</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>idCol</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>ROI</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QPushButton" name="pushButton_3">
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
+      <item row="2" column="2">
        <widget class="QLineEdit" name="lineEdit_3"/>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>CBICA Models</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="1">
+      <item row="0" column="2">
        <widget class="QmitkDataStorageComboBox" name="m_cbReferenceNodeSelector">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -160,68 +99,36 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_5">
+      <item row="2" column="1">
+       <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>Model Directory</string>
+         <string>ROI</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>sList</string>
-        </property>
+      <item row="1" column="2">
+       <widget class="QComboBox" name="comboBox">
+        <item>
+         <property name="text">
+          <string>Select a model</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Skull Stripping</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Model-30</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Model-40</string>
+         </property>
+        </item>
        </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QLineEdit" name="lineEdit_5"/>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>Rescale Norm</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="label_12">
-        <property name="text">
-         <string>Verb</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_PatientImage">
-        <property name="text">
-         <string>Reference Image</string>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="0">
-       <widget class="QLabel" name="label_13">
-        <property name="text">
-         <string>nJobs</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <widget class="QLineEdit" name="lineEdit_7"/>
-      </item>
-      <item row="8" column="1">
-       <widget class="QLineEdit" name="lineEdit_8"/>
-      </item>
-      <item row="9" column="1">
-       <widget class="QLineEdit" name="lineEdit_9"/>
-      </item>
-      <item row="10" column="1">
-       <widget class="QLineEdit" name="lineEdit_10"/>
-      </item>
-      <item row="11" column="1">
-       <widget class="QLineEdit" name="lineEdit_11"/>
-      </item>
-      <item row="12" column="1">
-       <widget class="QLineEdit" name="lineEdit_12"/>
       </item>
      </layout>
     </widget>
@@ -290,9 +197,6 @@
    <header location="global">QmitkDataStorageComboBox.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../../../../InteractiveSegmentation/Plugins/upenn.cbica.captk.interactivesegmentation/resources/captkinteractivesegmentation.qrc"/>
-  <include location="../../../../Modules/CbicaDeepMRSeg/resources/QExamplePython.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

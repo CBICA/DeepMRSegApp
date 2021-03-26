@@ -124,11 +124,11 @@ void QDeepMRSegView::OnDoStuffButtonClicked()
 
 				MITK_INFO << "Adding a name";
 				// Add a suffix so users can easily see what it is
-				QString name = QString("%1_inverted").arg(imageName.c_str());
+				QString name = QString("%1_segmented").arg(imageName.c_str());
 				processedImageDataNode->SetName(name.toStdString());
 
 				// Finally, add the new node to the data storage.
-				ds->Add(processedImageDataNode);
+				ds->Add(processedImageDataNode,node);
 
 			}
 		}

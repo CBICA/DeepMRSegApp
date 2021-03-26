@@ -64,13 +64,7 @@ void QDeepMRSegView::Hidden()
 
 void QDeepMRSegView::OnDoStuffButtonClicked()
 {
-    //QMessageBox msgError;
-    //msgError.setText("Hello, I am DeepMRSeg.");
-    //msgError.setIcon(QMessageBox::Critical);
-    //msgError.setWindowTitle("DeepMRSeg");
-    //msgError.exec();
-
-		//get datastorage( we use it further down )
+	//get datastorage( we use it further down )
 	auto ds = this->GetDataStorage();
 
 	//get selected nodes
@@ -104,12 +98,12 @@ void QDeepMRSegView::OnDoStuffButtonClicked()
 
 				// get our inverter filter class (note this isn't a proper ITK-style smart pointer --
 				// change this in your code if you are using a proper filter.
-				auto filter = DeepMRSegMediator();
-				auto filterPtr = &filter;
+				auto mediator = DeepMRSegMediator();
+				auto mediatorPtr = &mediator;
 
-				filterPtr->SetInput(image);
-				filterPtr->Update();
-				mitk::Image::Pointer processedImage = filterPtr->GetOutput();
+				mediatorPtr->SetInput(image);
+				mediatorPtr->Update();
+				mitk::Image::Pointer processedImage = mediatorPtr->GetOutput();
 
 				// Double check to make sure we aren't adding uninitalized or null images. 
 				if (processedImage.IsNull() || !processedImage->IsInitialized())

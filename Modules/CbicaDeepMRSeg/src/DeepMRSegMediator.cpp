@@ -16,7 +16,7 @@
 DeepMRSegMediator::DeepMRSegMediator()
 {
 	// any setup required goes here
-	pythonFilesDirPath = "C:/workspace/projects/DeepMRSegApp/Modules/CbicaDeepMRSeg/resources/DeepMRSeg";
+	pythonFilesDirPath = "C:/workspace/projects/DeepMRSegApp/Modules/CbicaDeepMRSeg/resources";
 
 	//load python service
 	us::ModuleContext* context = us::GetModuleContext();
@@ -39,8 +39,8 @@ DeepMRSegMediator::DeepMRSegMediator()
 	RegisterResourceDir(pythonFilesDirPath);
 
 	// Add python packages path - will only work on individual machine
-	std::string pythonpackagespath = "C://myinstalls//anaconda3//envs//testpy3//Lib//site-packages";
-	RegisterResourceDir(pythonpackagespath);
+	//std::string pythonpackagespath = "C://myinstalls//anaconda3//envs//testpy3//Lib//site-packages";
+	//RegisterResourceDir(pythonpackagespath);
 
 	// Set cwd in python as if it was run natively.
 	bool success = ChangeWorkingDirectory(pythonFilesDirPath);
@@ -57,23 +57,25 @@ void DeepMRSegMediator::Update()
 	// transfer input image to python
 	m_PythonService->CopyToPythonAsSimpleItkImage(m_InputPtr, "in_image");
 
-	//read script into QString
-	QString data;
-	QString pythonScriptName(":/QExamplePython/DeepMRSeg/deepmrseg_test.py");
-	QFile file(pythonScriptName);
-	if (!file.open(QIODevice::ReadOnly))
-	{
-		MITK_INFO << "filenot opened" << endl;
-	}
-	else
-	{
-		MITK_INFO << "file opened" << endl;
-		data = file.readAll();
-	}
-	file.close();
+	////read script into QString
+	//QString data;
+	//QString pythonScriptName(":/QExamplePython/DeepMRSeg/deepmrseg_test.py");
+	//QFile file(pythonScriptName);
+	//if (!file.open(QIODevice::ReadOnly))
+	//{
+	//	MITK_INFO << "filenot opened" << endl;
+	//}
+	//else
+	//{
+	//	MITK_INFO << "file opened" << endl;
+	//	data = file.readAll();
+	//}
+	//file.close();
 
-	//call python script
-	m_PythonService->Execute(data.toStdString(), mitk::IPythonService::MULTI_LINE_COMMAND);
+	////call python script
+	//m_PythonService->Execute(data.toStdString(), mitk::IPythonService::MULTI_LINE_COMMAND);
+
+	this->RunSampleScript();
 
 	// clean up after running script (better way than deleting individual variables?)
 	if (m_PythonService->DoesVariableExist("in_image"))
@@ -218,7 +220,7 @@ void DeepMRSegMediator::RunSampleScript()
 {
 	MITK_INFO << "  DeepMRSegMediator::RunSampleScript() ";
 	// With everything else set up, the logic for running the script goes here.
-	auto entryPointFilename = "deepmrseg_test.py";
+	auto entryPointFilename = "deepmrsegwrapper.py"; //"deepmrseg_test.py";
 	
 	std::string fullfilepath = pythonFilesDirPath + "/" + entryPointFilename;
 

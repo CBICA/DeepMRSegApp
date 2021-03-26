@@ -27,7 +27,6 @@ DeepMRSegMediator::DeepMRSegMediator()
 	// Remove existing entries from path
     // This ensures only dirs we explicitly allow will be found
 	m_PythonService->Execute("import sys", mitk::IPythonService::SINGLE_LINE_COMMAND);
-	//m_PythonService->Execute("sys.path = []", mitk::IPythonService::SINGLE_LINE_COMMAND);
 
 	// Find our python files if we haven't already and allow python to access them
 	if (!pythonFilesDirFound)
@@ -37,10 +36,6 @@ DeepMRSegMediator::DeepMRSegMediator()
 
 	// Add to path first just in case.
 	RegisterResourceDir(pythonFilesDirPath);
-
-	// Add python packages path - will only work on individual machine
-	//std::string pythonpackagespath = "C://myinstalls//anaconda3//envs//testpy3//Lib//site-packages";
-	//RegisterResourceDir(pythonpackagespath);
 
 	// Set cwd in python as if it was run natively.
 	bool success = ChangeWorkingDirectory(pythonFilesDirPath);
@@ -57,24 +52,7 @@ void DeepMRSegMediator::Update()
 	// transfer input image to python
 	m_PythonService->CopyToPythonAsSimpleItkImage(m_InputPtr, "in_image");
 
-	////read script into QString
-	//QString data;
-	//QString pythonScriptName(":/QExamplePython/DeepMRSeg/deepmrseg_test.py");
-	//QFile file(pythonScriptName);
-	//if (!file.open(QIODevice::ReadOnly))
-	//{
-	//	MITK_INFO << "filenot opened" << endl;
-	//}
-	//else
-	//{
-	//	MITK_INFO << "file opened" << endl;
-	//	data = file.readAll();
-	//}
-	//file.close();
-
-	////call python script
-	//m_PythonService->Execute(data.toStdString(), mitk::IPythonService::MULTI_LINE_COMMAND);
-
+	//calling the python deepmrseg wrapper
 	this->RunSampleScript();
 
 	// clean up after running script (better way than deleting individual variables?)
@@ -228,14 +206,6 @@ void DeepMRSegMediator::RunSampleScript()
 
 	// Execute our entrypoint. Any last-second setup or checks should be done before this.
 	m_PythonService->ExecuteScript(fullfilepath);
-
-	//// Now you can do post-processing. Retrieve results, call more python functions, etc...
-
-	//// Example: Get a variable from Python
-	//std::string resultFromPython = m_PythonService->GetVariable("CAPTK_RESULT_STRING");
-	//MITK_INFO << "Result from Python: " + resultFromPython;
-
-	//// Maybe we could modify this to return a status string
 
 }
 

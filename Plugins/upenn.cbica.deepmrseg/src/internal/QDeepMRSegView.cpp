@@ -27,9 +27,6 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
   //hide temporarily since python side doesn't yet thrown progress
   m_Controls.progressBar->hide(); 
 
-  //temporarily disabled since this would change
-  m_Controls.groupBox_DataSelection->setDisabled(true); 
-
   connect(m_Controls.pushButtonRun, SIGNAL(clicked()),
 	  this, SLOT(OnDoStuffButtonClicked()));
 

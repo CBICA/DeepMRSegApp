@@ -65,48 +65,60 @@
       <string>Parameters</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="2" column="3">
-       <widget class="QPushButton" name="pushButton_2">
+      <item row="0" column="2">
+       <widget class="QComboBox" name="comboBox_3"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Browse</string>
+         <string>Task</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="label_PatientImage">
+       <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Reference Image</string>
+         <string>T1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Models</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Flair</string>
         </property>
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QLineEdit" name="lineEdit_3"/>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>CBICA Models</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QmitkDataStorageComboBox" name="m_cbReferenceNodeSelector">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>ROI</string>
-        </property>
+       <widget class="QComboBox" name="comboBox_2">
+        <item>
+         <property name="text">
+          <string>Brain Extraction</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Lesion Segmentation</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ROI Segmentation</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item row="1" column="2">
+       <widget class="QComboBox" name="comboBox_4"/>
+      </item>
+      <item row="3" column="2">
        <widget class="QComboBox" name="comboBox">
         <item>
          <property name="text">
@@ -115,12 +127,12 @@
         </item>
         <item>
          <property name="text">
-          <string>Skull Stripping</string>
+          <string>Default</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>Model-30</string>
+          <string>DLICV</string>
          </property>
         </item>
         <item>
@@ -190,13 +202,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QmitkDataStorageComboBox</class>
-   <extends>QComboBox</extends>
-   <header location="global">QmitkDataStorageComboBox.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

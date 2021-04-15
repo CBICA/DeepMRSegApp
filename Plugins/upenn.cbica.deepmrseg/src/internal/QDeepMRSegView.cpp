@@ -27,9 +27,6 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
   //hide temporarily since python side doesn't yet thrown progress
   m_Controls.progressBar->hide(); 
 
-  //temporarily disabled since this would change
-  m_Controls.groupBox_DataSelection->setDisabled(true); 
-
   connect(m_Controls.pushButtonRun, SIGNAL(clicked()),
 	  this, SLOT(OnDoStuffButtonClicked()));
 
@@ -64,13 +61,7 @@ void QDeepMRSegView::Hidden()
 
 void QDeepMRSegView::OnDoStuffButtonClicked()
 {
-    //QMessageBox msgError;
-    //msgError.setText("Hello, I am DeepMRSeg.");
-    //msgError.setIcon(QMessageBox::Critical);
-    //msgError.setWindowTitle("DeepMRSeg");
-    //msgError.exec();
-
-		//get datastorage( we use it further down )
+	//get datastorage( we use it further down )
 	auto ds = this->GetDataStorage();
 
 	//get selected nodes
@@ -104,12 +95,12 @@ void QDeepMRSegView::OnDoStuffButtonClicked()
 
 				// get our inverter filter class (note this isn't a proper ITK-style smart pointer --
 				// change this in your code if you are using a proper filter.
-				auto filter = DeepMRSegMediator();
-				auto filterPtr = &filter;
+				auto mediator = DeepMRSegMediator();
+				auto mediatorPtr = &mediator;
 
-				filterPtr->SetInput(image);
-				filterPtr->Update();
-				mitk::Image::Pointer processedImage = filterPtr->GetOutput();
+				mediatorPtr->SetInput(image);
+				mediatorPtr->Update();
+				mitk::Image::Pointer processedImage = mediatorPtr->GetOutput();
 
 				// Double check to make sure we aren't adding uninitalized or null images. 
 				if (processedImage.IsNull() || !processedImage->IsInitialized())
@@ -124,11 +115,11 @@ void QDeepMRSegView::OnDoStuffButtonClicked()
 
 				MITK_INFO << "Adding a name";
 				// Add a suffix so users can easily see what it is
-				QString name = QString("%1_inverted").arg(imageName.c_str());
+				QString name = QString("%1_segmented").arg(imageName.c_str());
 				processedImageDataNode->SetName(name.toStdString());
 
 				// Finally, add the new node to the data storage.
-				ds->Add(processedImageDataNode);
+				ds->Add(processedImageDataNode,node);
 
 			}
 		}

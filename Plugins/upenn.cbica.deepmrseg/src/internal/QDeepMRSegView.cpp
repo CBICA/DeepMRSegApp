@@ -24,14 +24,23 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
   m_Parent = parent;
   m_Controls.setupUi(parent);
 
+  //populate tasks
+  m_Controls.comboBox_tasks->insertItem(TaskType::BRAINEXTRACTION, "Brain Extraction");
+  m_Controls.comboBox_tasks->insertItem(TaskType::LESIONSEGMENTATION, "Lesion Segmentation");
+  m_Controls.comboBox_tasks->insertItem(TaskType::MUSESEGMENTATION, "Muse Segmentation");
+  m_Controls.comboBox_tasks->insertItem(TaskType::SELECTTASK, "Select a task");
+
+  //by default show 'select task'
+  m_Controls.comboBox_tasks->setCurrentIndex(TaskType::SELECTTASK);
+
   //hide temporarily since python side doesn't yet thrown progress
   m_Controls.progressBar->hide(); 
 
-  connect(m_Controls.pushButtonRun, SIGNAL(clicked()),
-	  this, SLOT(OnDoStuffButtonClicked()));
+  connect(m_Controls.pushButtonRun, SIGNAL(clicked()),this, SLOT(OnDoStuffButtonClicked()));
 
-  connect(m_Controls.pushButtonRunScript, SIGNAL(clicked()),
-	  this, SLOT(OnRunScriptClicked()));
+  connect(m_Controls.pushButtonRunScript, SIGNAL(clicked()),this, SLOT(OnRunScriptClicked()));
+
+  connect(m_Controls.comboBox_tasks, SIGNAL(currentIndexChanged(int)), this, SLOT(OnTaskChanged(int)));
   
 }
 
@@ -135,6 +144,30 @@ void QDeepMRSegView::OnRunScriptClicked()
 	MITK_INFO << "  script button clicked ";
 	DeepMRSegMediator dmrs_mediator;
 	dmrs_mediator.RunSampleScript();
+}
+
+void QDeepMRSegView::OnTaskChanged(int index)
+{
+	if (index == TaskType::BRAINEXTRACTION)
+	{
+		m_Controls.comboBox_flair->hide();
+		m_Controls.label_flair->hide();
+	}
+	else if (index == TaskType::LESIONSEGMENTATION)
+	{
+		m_Controls.comboBox_flair->show();
+		m_Controls.label_flair->show();
+	}
+	else if (index == TaskType::MUSESEGMENTATION)
+	{
+		m_Controls.comboBox_flair->hide();
+		m_Controls.label_flair->hide();
+	}
+	else if (index == TaskType::SELECTTASK)
+	{
+		m_Controls.comboBox_flair->show();
+		m_Controls.label_flair->show();
+	}
 }
 
 void QDeepMRSegView::OnSelectionChanged(berry::IWorkbenchPart::Pointer, const QList<mitk::DataNode::Pointer>& /*nodes*/)

@@ -12,10 +12,20 @@ class QDeepMRSegView : public QmitkAbstractView,
   Q_OBJECT
 
 public:
+	enum TaskType
+	{
+		BRAINEXTRACTION = 0,
+		LESIONSEGMENTATION,
+		MUSESEGMENTATION,
+		SELECTTASK
+	};
+
   static const std::string VIEW_ID;
 
   QDeepMRSegView();
   virtual ~QDeepMRSegView();
+
+  Q_ENUM(TaskType)
 
   // GUI setup
   void CreateQtPartControl(QWidget *parent);
@@ -33,6 +43,9 @@ protected slots:
 
   /** \brief "Run Script" Button clicked slot */
   void OnRunScriptClicked();
+
+  /** \brief task changed slot */
+  void OnTaskChanged(int);
 
 protected:
 

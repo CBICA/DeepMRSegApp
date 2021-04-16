@@ -66,60 +66,44 @@
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="2">
-       <widget class="QComboBox" name="comboBox_3"/>
+       <widget class="QComboBox" name="comboBox_t1"/>
       </item>
       <item row="2" column="1">
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="label_task">
         <property name="text">
          <string>Task</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="label_t1">
         <property name="text">
          <string>T1</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label_model">
         <property name="text">
          <string>Models</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="label_flair">
         <property name="text">
          <string>Flair</string>
         </property>
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QComboBox" name="comboBox_2">
-        <item>
-         <property name="text">
-          <string>Brain Extraction</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Lesion Segmentation</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ROI Segmentation</string>
-         </property>
-        </item>
-       </widget>
+       <widget class="QComboBox" name="comboBox_tasks"/>
       </item>
       <item row="1" column="2">
-       <widget class="QComboBox" name="comboBox_4"/>
+       <widget class="QComboBox" name="comboBox_flair"/>
       </item>
       <item row="3" column="2">
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="comboBox_model">
         <item>
          <property name="text">
           <string>Select a model</string>

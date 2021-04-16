@@ -2,15 +2,38 @@
 
 #include <QMessageBox>
 
+#include <mitkNodePredicateNot.h>
+#include <mitkNodePredicateProperty.h>
+#include <mitkNodePredicateDataType.h>
+#include <mitkNodePredicateOr.h>
+
 #include "DeepMRSegMediator.h"
 
 const std::string QDeepMRSegView::VIEW_ID =
     "upenn.cbica.deepmrseg.view";
 
-
 QDeepMRSegView::QDeepMRSegView()
 {
   // ---- General setup operations ----
+	mitk::TNodePredicateDataType<mitk::Image>::Pointer isImage = mitk::TNodePredicateDataType<mitk::Image>::New();
+	mitk::NodePredicateProperty::Pointer isBinary =	mitk::NodePredicateProperty::New("binary", mitk::BoolProperty::New(true));
+	mitk::NodePredicateAnd::Pointer isMask = mitk::NodePredicateAnd::New(isBinary, isImage);
+
+	auto isSegment = mitk::NodePredicateDataType::New("Segment");
+
+	mitk::NodePredicateOr::Pointer validImages = mitk::NodePredicateOr::New();
+	validImages->AddPredicate(mitk::NodePredicateAnd::New(isImage, mitk::NodePredicateNot::New(isSegment)));
+
+	m_T1Predicate = mitk::NodePredicateAnd::New();
+	m_T1Predicate->AddPredicate(validImages);
+	m_T1Predicate->AddPredicate(mitk::NodePredicateNot::New(isMask));
+	m_T1Predicate->AddPredicate(mitk::NodePredicateNot::New(mitk::NodePredicateProperty::New("helper object")));
+
+	m_FlairPredicate = mitk::NodePredicateAnd::New();
+	m_FlairPredicate->AddPredicate(validImages);
+	m_FlairPredicate->AddPredicate(mitk::NodePredicateNot::New(isMask));
+	m_FlairPredicate->AddPredicate(mitk::NodePredicateNot::New(mitk::NodePredicateProperty::New("helper object")));
+
 }
 
 QDeepMRSegView::~QDeepMRSegView()
@@ -36,11 +59,24 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
   //hide temporarily since python side doesn't yet thrown progress
   m_Controls.progressBar->hide(); 
 
+  m_Controls.comboBox_t1->SetAutoSelectNewItems(true);
+  m_Controls.comboBox_t1->SetPredicate(m_T1Predicate);
+  m_Controls.comboBox_t1->SetDataStorage(this->GetDataStorage());
+
+  m_Controls.comboBox_flair->SetAutoSelectNewItems(true);
+  m_Controls.comboBox_flair->SetPredicate(m_FlairPredicate);
+  m_Controls.comboBox_flair->SetDataStorage(this->GetDataStorage());
+
+  // signals/slots connections
   connect(m_Controls.pushButtonRun, SIGNAL(clicked()),this, SLOT(OnRunButtonClicked()));
 
   connect(m_Controls.pushButtonRunScript, SIGNAL(clicked()),this, SLOT(OnRunScriptClicked()));
 
   connect(m_Controls.comboBox_tasks, SIGNAL(currentIndexChanged(int)), this, SLOT(OnTaskChanged(int)));
+
+  connect(m_Controls.comboBox_t1, SIGNAL(OnSelectionChanged(const mitk::DataNode *)), this, SLOT(OnT1SelectionChanged(const mitk::DataNode *)));
+
+  connect(m_Controls.comboBox_flair, SIGNAL(OnSelectionChanged(const mitk::DataNode *)), this, SLOT(OnFlairSelectionChanged(const mitk::DataNode *)));
   
 }
 
@@ -168,6 +204,16 @@ void QDeepMRSegView::OnTaskChanged(int index)
 		m_Controls.comboBox_flair->show();
 		m_Controls.label_flair->show();
 	}
+}
+
+void QDeepMRSegView::OnT1SelectionChanged(const mitk::DataNode *)
+{
+	//TBD: if we want to do something when T1 selection changes
+}
+
+void QDeepMRSegView::OnFlairSelectionChanged(const mitk::DataNode *)
+{
+	//TBD: if we want to do something when Flair selection changes
 }
 
 void QDeepMRSegView::OnSelectionChanged(berry::IWorkbenchPart::Pointer, const QList<mitk::DataNode::Pointer>& /*nodes*/)

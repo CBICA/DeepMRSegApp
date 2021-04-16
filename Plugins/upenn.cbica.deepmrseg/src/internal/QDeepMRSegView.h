@@ -3,6 +3,7 @@
 
 #include <QmitkAbstractView.h>
 #include <mitkILifecycleAwarePart.h>
+#include <mitkNodePredicateAnd.h>
 
 #include "ui_QDeepMRSegControls.h"
 
@@ -47,6 +48,12 @@ protected slots:
   /** \brief task changed slot */
   void OnTaskChanged(int);
 
+  /** \brief T1 selection changed slot */
+  void OnT1SelectionChanged(const mitk::DataNode *);
+
+  /** \brief Flair selection changed slot */
+  void OnFlairSelectionChanged(const mitk::DataNode *);
+
 protected:
 
   // reimplemented from QmitkAbstractView
@@ -72,6 +79,9 @@ protected:
 
   /// \brief Qt GUI file
   Ui::QDeepMRSegControls m_Controls;
+
+  mitk::NodePredicateAnd::Pointer m_T1Predicate;
+  mitk::NodePredicateAnd::Pointer m_FlairPredicate;
 
 
 };

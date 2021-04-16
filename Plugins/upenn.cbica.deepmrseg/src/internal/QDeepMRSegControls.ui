@@ -66,7 +66,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="2">
-       <widget class="QComboBox" name="comboBox_t1"/>
+       <widget class="QmitkDataStorageComboBox" name="comboBox_t1"/>
       </item>
       <item row="2" column="1">
        <widget class="QLabel" name="label_task">
@@ -100,7 +100,7 @@
        <widget class="QComboBox" name="comboBox_tasks"/>
       </item>
       <item row="1" column="2">
-       <widget class="QComboBox" name="comboBox_flair"/>
+       <widget class="QmitkDataStorageComboBox" name="comboBox_flair"/>
       </item>
       <item row="3" column="2">
        <widget class="QComboBox" name="comboBox_model">
@@ -186,6 +186,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QmitkDataStorageComboBox</class>
+   <extends>QComboBox</extends>
+   <header location="global">QmitkDataStorageComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

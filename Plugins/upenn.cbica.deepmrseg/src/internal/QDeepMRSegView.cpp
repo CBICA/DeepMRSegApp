@@ -36,7 +36,7 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
   //hide temporarily since python side doesn't yet thrown progress
   m_Controls.progressBar->hide(); 
 
-  connect(m_Controls.pushButtonRun, SIGNAL(clicked()),this, SLOT(OnDoStuffButtonClicked()));
+  connect(m_Controls.pushButtonRun, SIGNAL(clicked()),this, SLOT(OnRunButtonClicked()));
 
   connect(m_Controls.pushButtonRunScript, SIGNAL(clicked()),this, SLOT(OnRunScriptClicked()));
 
@@ -68,7 +68,7 @@ void QDeepMRSegView::Hidden()
 /* protected slots                                                      */
 /************************************************************************/
 
-void QDeepMRSegView::OnDoStuffButtonClicked()
+void QDeepMRSegView::OnRunButtonClicked()
 {
 	//get datastorage( we use it further down )
 	auto ds = this->GetDataStorage();

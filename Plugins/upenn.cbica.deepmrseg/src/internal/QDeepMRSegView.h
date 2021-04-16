@@ -39,7 +39,7 @@ public:
 protected slots:
 
   /** \brief "Do Stuff" Button clicked slot */
-  void OnDoStuffButtonClicked();
+  void OnRunButtonClicked();
 
   /** \brief "Run Script" Button clicked slot */
   void OnRunScriptClicked();

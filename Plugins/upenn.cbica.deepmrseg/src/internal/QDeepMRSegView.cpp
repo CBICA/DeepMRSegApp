@@ -9,8 +9,7 @@
 
 #include "DeepMRSegMediator.h"
 
-const std::string QDeepMRSegView::VIEW_ID =
-    "upenn.cbica.deepmrseg.view";
+const std::string QDeepMRSegView::VIEW_ID = "upenn.cbica.deepmrseg.view";
 
 QDeepMRSegView::QDeepMRSegView()
 {
@@ -56,9 +55,10 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
   //by default show 'select task'
   m_Controls.comboBox_tasks->setCurrentIndex(TaskType::SELECTTASK);
 
-  //hide temporarily since python side doesn't yet thrown progress
+  //hide temporarily since python side doesn't yet throw progress
   m_Controls.progressBar->hide(); 
 
+  //data selection from data storage
   m_Controls.comboBox_t1->SetAutoSelectNewItems(true);
   m_Controls.comboBox_t1->SetPredicate(m_T1Predicate);
   m_Controls.comboBox_t1->SetDataStorage(this->GetDataStorage());
@@ -69,13 +69,9 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
 
   // signals/slots connections
   connect(m_Controls.pushButtonRun, SIGNAL(clicked()),this, SLOT(OnRunButtonClicked()));
-
   connect(m_Controls.pushButtonRunScript, SIGNAL(clicked()),this, SLOT(OnRunScriptClicked()));
-
   connect(m_Controls.comboBox_tasks, SIGNAL(currentIndexChanged(int)), this, SLOT(OnTaskChanged(int)));
-
   connect(m_Controls.comboBox_t1, SIGNAL(OnSelectionChanged(const mitk::DataNode *)), this, SLOT(OnT1SelectionChanged(const mitk::DataNode *)));
-
   connect(m_Controls.comboBox_flair, SIGNAL(OnSelectionChanged(const mitk::DataNode *)), this, SLOT(OnFlairSelectionChanged(const mitk::DataNode *)));
   
 }
@@ -208,37 +204,37 @@ void QDeepMRSegView::OnTaskChanged(int index)
 
 void QDeepMRSegView::OnT1SelectionChanged(const mitk::DataNode *)
 {
-	//TBD: if we want to do something when T1 selection changes
+	// Not yet implemented
 }
 
 void QDeepMRSegView::OnFlairSelectionChanged(const mitk::DataNode *)
 {
-	//TBD: if we want to do something when Flair selection changes
+	// Not yet implemented
 }
 
 void QDeepMRSegView::OnSelectionChanged(berry::IWorkbenchPart::Pointer, const QList<mitk::DataNode::Pointer>& /*nodes*/)
 {
-
+	// Not yet implemented
 }
 
 void QDeepMRSegView::OnPreferencesChanged(const berry::IBerryPreferences* /*prefs*/)
 {
-
+	// Not yet implemented
 }
 
 void QDeepMRSegView::NodeAdded(const mitk::DataNode* /*node*/)
 {
-
+	// Not yet implemented
 }
 
 void QDeepMRSegView::NodeRemoved(const mitk::DataNode* /*node*/)
 {
-
+	// Not yet implemented
 }
 
 void QDeepMRSegView::SetFocus()
 {
-
+	// Not yet implemented
 }
 
 void QDeepMRSegView::UpdateControls()
@@ -248,5 +244,5 @@ void QDeepMRSegView::UpdateControls()
 
 void QDeepMRSegView::InitializeListeners()
 {
-
+	// Not yet implemented
 }

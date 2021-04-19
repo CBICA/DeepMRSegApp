@@ -29,7 +29,9 @@ public:
 	~DeepMRSegMediator() {}
 
 	// ITK-filter-like functions
-	void SetInput(mitk::Image::Pointer inImagePtr);
+	void SetT1Image(mitk::Image::Pointer T1ImagePtr);
+	void SetFlairImage(mitk::Image::Pointer FlImagePtr);
+
 	void Update();
 	mitk::Image::Pointer GetOutput();
 
@@ -41,7 +43,7 @@ public:
 	bool ChangeWorkingDirectory(std::string newWorkingDirectoryPath);
 
 protected:
-	mitk::Image::Pointer m_InputPtr;
+	mitk::Image::Pointer m_InputPtr_T1, m_InputPtr_Flair;
 	mitk::Image::Pointer m_LastOutput;
 
 	us::ServiceReference<mitk::IPythonService> m_PythonServiceRef;

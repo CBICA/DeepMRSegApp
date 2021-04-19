@@ -54,6 +54,9 @@ protected slots:
   /** \brief Flair selection changed slot */
   void OnFlairSelectionChanged(const mitk::DataNode *);
 
+  /** \brief Flair selection changed slot */
+  void OnSelectModelButtonClicked();
+
 protected:
 
   // reimplemented from QmitkAbstractView

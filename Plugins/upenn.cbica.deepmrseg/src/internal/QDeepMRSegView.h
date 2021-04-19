@@ -83,7 +83,7 @@ protected:
   mitk::NodePredicateAnd::Pointer m_T1Predicate;
   mitk::NodePredicateAnd::Pointer m_FlairPredicate;
 
-
+  TaskType m_taskType;
 };
 
 #endif // ! QDeepMRSegView_h

@@ -40,17 +40,30 @@ DeepMRSegMediator::DeepMRSegMediator()
 	// Set cwd in python as if it was run natively.
 	bool success = ChangeWorkingDirectory(pythonFilesDirPath);
 	MITK_INFO << " change working directory: " << success;
+
+	//default ivars
+	this->m_InputPtr_Flair = nullptr;
+	this->m_InputPtr_T1 = nullptr;
 }
 
-void DeepMRSegMediator::SetInput(mitk::Image::Pointer inImagePtr)
+void DeepMRSegMediator::SetT1Image(mitk::Image::Pointer T1ImagePtr)
 {
-	this->m_InputPtr = inImagePtr;
+	this->m_InputPtr_T1 = T1ImagePtr;
+}
+
+void DeepMRSegMediator::SetFlairImage(mitk::Image::Pointer FlImagePtr)
+{
+	this->m_InputPtr_Flair = FlImagePtr;
 }
 
 void DeepMRSegMediator::Update()
 {
 	// transfer input image to python
-	m_PythonService->CopyToPythonAsSimpleItkImage(m_InputPtr, "in_image");
+	if(this->m_InputPtr_T1 != nullptr)
+		m_PythonService->CopyToPythonAsSimpleItkImage(this->m_InputPtr_T1, "in_image");
+
+	if(this->m_InputPtr_Flair != nullptr)
+		m_PythonService->CopyToPythonAsSimpleItkImage(this->m_InputPtr_Flair, "in_image_fl");
 
 	//calling the python deepmrseg wrapper
 	this->RunSampleScript();
@@ -58,6 +71,9 @@ void DeepMRSegMediator::Update()
 	// clean up after running script (better way than deleting individual variables?)
 	if (m_PythonService->DoesVariableExist("in_image"))
 		m_PythonService->Execute("del in_image");
+
+	if (m_PythonService->DoesVariableExist("in_image_fl"))
+		m_PythonService->Execute("del in_image_fl");
 
 	if (m_PythonService->DoesVariableExist("out_image"))
 	{

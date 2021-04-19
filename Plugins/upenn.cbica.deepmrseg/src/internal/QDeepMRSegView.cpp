@@ -1,6 +1,7 @@
 #include "QDeepMRSegView.h"
 
 #include <QMessageBox>
+#include <QFileDialog>
 
 #include <mitkNodePredicateNot.h>
 #include <mitkNodePredicateProperty.h>
@@ -76,6 +77,7 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
   connect(m_Controls.comboBox_tasks, SIGNAL(currentIndexChanged(int)), this, SLOT(OnTaskChanged(int)));
   connect(m_Controls.comboBox_t1, SIGNAL(OnSelectionChanged(const mitk::DataNode *)), this, SLOT(OnT1SelectionChanged(const mitk::DataNode *)));
   connect(m_Controls.comboBox_flair, SIGNAL(OnSelectionChanged(const mitk::DataNode *)), this, SLOT(OnFlairSelectionChanged(const mitk::DataNode *)));
+  connect(m_Controls.pushButton_selectModel, SIGNAL(clicked()), this, SLOT(OnSelectModelButtonClicked()));
   
 }
 
@@ -287,6 +289,29 @@ void QDeepMRSegView::OnT1SelectionChanged(const mitk::DataNode *)
 void QDeepMRSegView::OnFlairSelectionChanged(const mitk::DataNode *)
 {
 	// Not yet implemented
+}
+
+void QDeepMRSegView::OnSelectModelButtonClicked()
+{
+	auto dirName = QFileDialog::getExistingDirectory(m_Parent,
+		tr("Select model directory"),
+		qApp->applicationDirPath(), 
+		QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+
+	if (dirName.isEmpty() || dirName.isNull()) 
+	{ 
+		return; 
+	}
+
+	// if not dir, we return
+	QFileInfo file(dirName);
+	if (!file.isDir()) 
+	{ 
+		return; 
+	}
+
+	// Set the path to the QLineEdit
+	m_Controls.lineEdit_model->setText(dirName);
 }
 
 void QDeepMRSegView::OnSelectionChanged(berry::IWorkbenchPart::Pointer, const QList<mitk::DataNode::Pointer>& /*nodes*/)

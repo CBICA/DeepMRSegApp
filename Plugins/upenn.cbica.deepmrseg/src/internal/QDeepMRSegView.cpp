@@ -13,6 +13,9 @@ const std::string QDeepMRSegView::VIEW_ID = "upenn.cbica.deepmrseg.view";
 
 QDeepMRSegView::QDeepMRSegView()
 {
+	//default task type
+	this->m_taskType = TaskType::SELECTTASK;
+
   // ---- General setup operations ----
 	mitk::TNodePredicateDataType<mitk::Image>::Pointer isImage = mitk::TNodePredicateDataType<mitk::Image>::New();
 	mitk::NodePredicateProperty::Pointer isBinary =	mitk::NodePredicateProperty::New("binary", mitk::BoolProperty::New(true));
@@ -102,69 +105,141 @@ void QDeepMRSegView::Hidden()
 
 void QDeepMRSegView::OnRunButtonClicked()
 {
-	//get datastorage( we use it further down )
-	auto ds = this->GetDataStorage();
+	//check for T1 ( used for all supported task types )
+	mitk::DataNode::Pointer t1Node = m_Controls.comboBox_t1->GetSelectedNode();
 
-	//get selected nodes
-	QList<mitk::DataNode::Pointer> nodes = this->GetDataManagerSelection();
-
-	//we don't handle the case where data is not loaded or more than 1 nodes are selected
-	if (nodes.empty() || nodes.size() > 1)
+	// is something selected
+	if (t1Node.IsNull())
 	{
-		QMessageBox msgError;
-		msgError.setText("Please load and select a dataset.");
-		msgError.setIcon(QMessageBox::Critical);
-		msgError.setWindowTitle("selection error");
-		msgError.exec();
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please load a T1 image before proceeding.");
+		return;
 	}
-	else
+
+	// Something is selected, but does it contain data?
+	mitk::BaseData::Pointer t1data = t1Node->GetData();
+	if (t1data.IsNull())
 	{
-		//get first node from list
-		mitk::DataNode *node = nodes.front();
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please load a T1 image before proceeding.");
+		return;
+	}
 
-		auto data = node->GetData();
-		// node has data?
-		if (data != nullptr)
+	// Something is selected and it contains data, but is it an image?
+	mitk::Image::Pointer t1image = dynamic_cast<mitk::Image*>(t1data.GetPointer());
+	if (t1image.IsNull())
+	{
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please load a T1 image before proceeding.");
+		return;
+	}
+
+	mitk::DataNode::Pointer flNode;
+	mitk::BaseData::Pointer fldata;
+	mitk::Image::Pointer flimage;
+
+	//check for Flair ( used only in case of lesion segmentation task )
+	if (this->m_taskType == TaskType::LESIONSEGMENTATION)
+	{
+		flNode = m_Controls.comboBox_flair->GetSelectedNode();
+
+		// is something selected
+		if (flNode.IsNull())
 		{
-			// get smart pointer from data
-			mitk::Image::Pointer image = dynamic_cast<mitk::Image*>(data);
-			// ... has IMAGE data? :D
-			if (image.IsNotNull())
-			{
-				auto imageName = node->GetName();
-				MITK_INFO << "Processing image \"" << imageName << "\" ...";
+			QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please load a Flair image before proceeding.");
+			return;
+		}
 
-				// get our inverter filter class (note this isn't a proper ITK-style smart pointer --
-				// change this in your code if you are using a proper filter.
-				auto mediator = DeepMRSegMediator();
-				auto mediatorPtr = &mediator;
+		// Something is selected, but does it contain data?
+		fldata = flNode->GetData();
+		if (fldata.IsNull())
+		{
+			QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please load a Flair image before proceeding.");
+			return;
+		}
 
-				mediatorPtr->SetInput(image);
-				mediatorPtr->Update();
-				mitk::Image::Pointer processedImage = mediatorPtr->GetOutput();
-
-				// Double check to make sure we aren't adding uninitalized or null images. 
-				if (processedImage.IsNull() || !processedImage->IsInitialized())
-					// Could do more diagnostics or raise an error message here...
-					return;
-
-				MITK_INFO << "  done";
-
-				auto processedImageDataNode = mitk::DataNode::New(); // Create a new node
-				MITK_INFO << "Adding to a data node";
-				processedImageDataNode->SetData(processedImage); // assign the inverted image to the node
-
-				MITK_INFO << "Adding a name";
-				// Add a suffix so users can easily see what it is
-				QString name = QString("%1_segmented").arg(imageName.c_str());
-				processedImageDataNode->SetName(name.toStdString());
-
-				// Finally, add the new node to the data storage.
-				ds->Add(processedImageDataNode,node);
-
-			}
+		// Something is selected and it contains data, but is it an image?
+		flimage = dynamic_cast<mitk::Image*>(fldata.GetPointer());
+		if (flimage.IsNull())
+		{
+			QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please load a Flair image before proceeding.");
+			return;
 		}
 	}
+
+	//call deepmrsegmediator
+	auto mediator = DeepMRSegMediator();
+	auto mediatorPtr = &mediator;
+
+	mediatorPtr->SetT1Image(t1image);
+
+	//in case of LesionSegmentation we also set the flair image
+	if (this->m_taskType == TaskType::LESIONSEGMENTATION)
+		mediatorPtr->SetFlairImage(flimage);
+
+	mediatorPtr->Update();
+	mitk::Image::Pointer processedImage = mediatorPtr->GetOutput();
+
+	////get datastorage( we use it further down )
+	//auto ds = this->GetDataStorage();
+
+	////get selected nodes
+	//QList<mitk::DataNode::Pointer> nodes = this->GetDataManagerSelection();
+
+	////we don't handle the case where data is not loaded or more than 1 nodes are selected
+	//if (nodes.empty() || nodes.size() > 1)
+	//{
+	//	QMessageBox msgError;
+	//	msgError.setText("Please load and select a dataset.");
+	//	msgError.setIcon(QMessageBox::Critical);
+	//	msgError.setWindowTitle("selection error");
+	//	msgError.exec();
+	//}
+	//else
+	//{
+	//	//get first node from list
+	//	mitk::DataNode *node = nodes.front();
+
+	//	auto data = node->GetData();
+	//	// node has data?
+	//	if (data != nullptr)
+	//	{
+	//		// get smart pointer from data
+	//		mitk::Image::Pointer image = dynamic_cast<mitk::Image*>(data);
+	//		// ... has IMAGE data? :D
+	//		if (image.IsNotNull())
+	//		{
+	//			auto imageName = node->GetName();
+	//			MITK_INFO << "Processing image \"" << imageName << "\" ...";
+
+	//			// get our inverter filter class (note this isn't a proper ITK-style smart pointer --
+	//			// change this in your code if you are using a proper filter.
+	//			auto mediator = DeepMRSegMediator();
+	//			auto mediatorPtr = &mediator;
+
+	//			mediatorPtr->SetT1Image(image);
+	//			mediatorPtr->Update();
+	//			mitk::Image::Pointer processedImage = mediatorPtr->GetOutput();
+
+	//			// Double check to make sure we aren't adding uninitalized or null images. 
+	//			if (processedImage.IsNull() || !processedImage->IsInitialized())
+	//				// Could do more diagnostics or raise an error message here...
+	//				return;
+
+	//			MITK_INFO << "  done";
+
+	//			auto processedImageDataNode = mitk::DataNode::New(); // Create a new node
+	//			MITK_INFO << "Adding to a data node";
+	//			processedImageDataNode->SetData(processedImage); // assign the inverted image to the node
+
+	//			MITK_INFO << "Adding a name";
+	//			// Add a suffix so users can easily see what it is
+	//			QString name = QString("%1_segmented").arg(imageName.c_str());
+	//			processedImageDataNode->SetName(name.toStdString());
+
+	//			// Finally, add the new node to the data storage.
+	//			ds->Add(processedImageDataNode,node);
+
+	//		}
+	//	}
+	//}
 }
 
 /************************************************************************/
@@ -180,6 +255,8 @@ void QDeepMRSegView::OnRunScriptClicked()
 
 void QDeepMRSegView::OnTaskChanged(int index)
 {
+	this->m_taskType = TaskType(index);
+
 	if (index == TaskType::BRAINEXTRACTION)
 	{
 		m_Controls.comboBox_flair->hide();

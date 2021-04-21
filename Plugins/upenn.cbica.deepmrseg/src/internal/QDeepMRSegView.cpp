@@ -2,6 +2,7 @@
 
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QMetaEnum>
 
 #include <mitkNodePredicateNot.h>
 #include <mitkNodePredicateProperty.h>
@@ -179,69 +180,29 @@ void QDeepMRSegView::OnRunButtonClicked()
 	mediatorPtr->Update();
 	mitk::Image::Pointer processedImage = mediatorPtr->GetOutput();
 
-	////get datastorage( we use it further down )
-	//auto ds = this->GetDataStorage();
+	// Double check to make sure we aren't adding uninitalized or null images. 
+	if (processedImage.IsNull() || !processedImage->IsInitialized())
+		// Could do more diagnostics or raise an error message here...
+		return;
 
-	////get selected nodes
-	//QList<mitk::DataNode::Pointer> nodes = this->GetDataManagerSelection();
+	MITK_INFO << "  done";
 
-	////we don't handle the case where data is not loaded or more than 1 nodes are selected
-	//if (nodes.empty() || nodes.size() > 1)
-	//{
-	//	QMessageBox msgError;
-	//	msgError.setText("Please load and select a dataset.");
-	//	msgError.setIcon(QMessageBox::Critical);
-	//	msgError.setWindowTitle("selection error");
-	//	msgError.exec();
-	//}
-	//else
-	//{
-	//	//get first node from list
-	//	mitk::DataNode *node = nodes.front();
+	auto processedImageDataNode = mitk::DataNode::New(); // Create a new node
+	MITK_INFO << "Adding to a data node";
+	processedImageDataNode->SetData(processedImage); // assign the inverted image to the node
 
-	//	auto data = node->GetData();
-	//	// node has data?
-	//	if (data != nullptr)
-	//	{
-	//		// get smart pointer from data
-	//		mitk::Image::Pointer image = dynamic_cast<mitk::Image*>(data);
-	//		// ... has IMAGE data? :D
-	//		if (image.IsNotNull())
-	//		{
-	//			auto imageName = node->GetName();
-	//			MITK_INFO << "Processing image \"" << imageName << "\" ...";
+	auto metaEnum = QMetaEnum::fromType<TaskType>();
+	QString selectTask = metaEnum.valueToKey(this->m_taskType);
 
-	//			// get our inverter filter class (note this isn't a proper ITK-style smart pointer --
-	//			// change this in your code if you are using a proper filter.
-	//			auto mediator = DeepMRSegMediator();
-	//			auto mediatorPtr = &mediator;
+	MITK_INFO << "Adding a name";
+	// Add a suffix so users can easily see what it is
+	QString name = QString("%1_segmented").arg(selectTask);
+	processedImageDataNode->SetName(name.toStdString());
 
-	//			mediatorPtr->SetT1Image(image);
-	//			mediatorPtr->Update();
-	//			mitk::Image::Pointer processedImage = mediatorPtr->GetOutput();
+	// Finally, add the new node to the data storage.
+	auto ds = this->GetDataStorage();
+	ds->Add(processedImageDataNode);
 
-	//			// Double check to make sure we aren't adding uninitalized or null images. 
-	//			if (processedImage.IsNull() || !processedImage->IsInitialized())
-	//				// Could do more diagnostics or raise an error message here...
-	//				return;
-
-	//			MITK_INFO << "  done";
-
-	//			auto processedImageDataNode = mitk::DataNode::New(); // Create a new node
-	//			MITK_INFO << "Adding to a data node";
-	//			processedImageDataNode->SetData(processedImage); // assign the inverted image to the node
-
-	//			MITK_INFO << "Adding a name";
-	//			// Add a suffix so users can easily see what it is
-	//			QString name = QString("%1_segmented").arg(imageName.c_str());
-	//			processedImageDataNode->SetName(name.toStdString());
-
-	//			// Finally, add the new node to the data storage.
-	//			ds->Add(processedImageDataNode,node);
-
-	//		}
-	//	}
-	//}
 }
 
 /************************************************************************/

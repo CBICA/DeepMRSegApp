@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>560</height>
+    <width>413</width>
+    <height>559</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -16,34 +22,20 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="groupBoxInstructions">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>100</height>
+      </size>
      </property>
      <property name="title">
       <string>Instructions</string>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_7">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QLabel" name="label">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
         <property name="text">
-         <string>• Load at least one image.
-• Select Parameters.
-• Run.</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;• Select Task.&lt;/p&gt;&lt;p&gt;• Select T1 or Flair images.&lt;/p&gt;&lt;p&gt;• Select Model directory. (Note the default CBICA models can be downloaded from here[url]).&lt;/p&gt;&lt;p&gt;• Click 'Run'&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
@@ -65,82 +57,56 @@
       <string>Parameters</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="2">
-       <widget class="QComboBox" name="comboBox_3"/>
-      </item>
       <item row="2" column="1">
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="label_flair">
+        <property name="text">
+         <string>Flair Image</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QmitkDataStorageComboBox" name="comboBox_flair"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="label_t1">
+        <property name="text">
+         <string>T1 Image</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label_model">
+          <property name="text">
+           <string>Select Model</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_model"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_selectModel">
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="2">
+       <widget class="QmitkDataStorageComboBox" name="comboBox_t1"/>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_task">
         <property name="text">
          <string>Task</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>T1</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Models</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>Flair</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QComboBox" name="comboBox_2">
-        <item>
-         <property name="text">
-          <string>Brain Extraction</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Lesion Segmentation</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ROI Segmentation</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QComboBox" name="comboBox_4"/>
-      </item>
-      <item row="3" column="2">
-       <widget class="QComboBox" name="comboBox">
-        <item>
-         <property name="text">
-          <string>Select a model</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Default</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>DLICV</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Model-40</string>
-         </property>
-        </item>
-       </widget>
+      <item row="0" column="2">
+       <widget class="QComboBox" name="comboBox_tasks"/>
       </item>
      </layout>
     </widget>
@@ -188,6 +154,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>This application may take a few minutes to run and may become unresponsive during this time. When the results are ready they will get loaded automatically.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -202,6 +178,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QmitkDataStorageComboBox</class>
+   <extends>QComboBox</extends>
+   <header location="global">QmitkDataStorageComboBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

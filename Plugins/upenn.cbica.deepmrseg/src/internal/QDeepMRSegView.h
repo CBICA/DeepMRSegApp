@@ -3,6 +3,7 @@
 
 #include <QmitkAbstractView.h>
 #include <mitkILifecycleAwarePart.h>
+#include <mitkNodePredicateAnd.h>
 
 #include "ui_QDeepMRSegControls.h"
 
@@ -12,10 +13,20 @@ class QDeepMRSegView : public QmitkAbstractView,
   Q_OBJECT
 
 public:
+	enum TaskType
+	{
+		BRAINEXTRACTION = 0,
+		LESIONSEGMENTATION,
+		MUSESEGMENTATION,
+		SELECTTASK
+	};
+
   static const std::string VIEW_ID;
 
   QDeepMRSegView();
   virtual ~QDeepMRSegView();
+
+  Q_ENUM(TaskType)
 
   // GUI setup
   void CreateQtPartControl(QWidget *parent);
@@ -29,10 +40,22 @@ public:
 protected slots:
 
   /** \brief "Do Stuff" Button clicked slot */
-  void OnDoStuffButtonClicked();
+  void OnRunButtonClicked();
 
   /** \brief "Run Script" Button clicked slot */
   void OnRunScriptClicked();
+
+  /** \brief task changed slot */
+  void OnTaskChanged(int);
+
+  /** \brief T1 selection changed slot */
+  void OnT1SelectionChanged(const mitk::DataNode *);
+
+  /** \brief Flair selection changed slot */
+  void OnFlairSelectionChanged(const mitk::DataNode *);
+
+  /** \brief Flair selection changed slot */
+  void OnSelectModelButtonClicked();
 
 protected:
 
@@ -60,7 +83,10 @@ protected:
   /// \brief Qt GUI file
   Ui::QDeepMRSegControls m_Controls;
 
+  mitk::NodePredicateAnd::Pointer m_T1Predicate;
+  mitk::NodePredicateAnd::Pointer m_FlairPredicate;
 
+  TaskType m_taskType;
 };
 
 #endif // ! QDeepMRSegView_h

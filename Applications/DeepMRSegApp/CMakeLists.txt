@@ -16,13 +16,13 @@ set(_plugins
  org_mitk_planarfigure
  org.blueberry.ui.qt.help
 
- #upenn.cbica.captk.ui
- #upenn.cbica.captk.application
+ upenn.cbica.deepmrseg.ui
+ upenn.cbica.deepmrseg.application
  #upenn.cbica.captk.common
  upenn.cbica.deepmrseg
 
  org.mitk.gui.qt.imagenavigator
- #org.mitk.gui.qt.measurementtoolbox
+ org.mitk.gui.qt.measurementtoolbox
  org.mitk.gui.qt.segmentation
  org.mitk.gui.qt.multilabelsegmentation
 )

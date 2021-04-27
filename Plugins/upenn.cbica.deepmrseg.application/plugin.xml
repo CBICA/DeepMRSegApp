@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  <extension id="org.mitk.qt.deepmrsegapplication" point="org.blueberry.osgi.applications">
+    <application>
+      <run class="QmitkDeepMRSegApplication"/>
+    </application>
+  </extension>
+
+  <extension id="captk" point="org.blueberry.core.runtime.products">
+    <product name="CaPTk 2" application="org.mitk.qt.captkapplication" />
+  </extension>
+  
+  <extension id="deepmrseg" point="org.blueberry.core.runtime.products">
+    <product name="DeepMRSeg" application="org.mitk.qt.deepmrsegapplication" />
+  </extension>
+
+<!--   <extension id="incise" point="org.blueberry.core.runtime.products">
+    <product name="InciSe" application="org.mitk.qt.deepmrsegapplication" />
+  </extension> -->
+
+  <!-- <extension id="fiberfox" point="org.blueberry.core.runtime.products">
+    <product name="MITK Fiberfox" application="org.mitk.qt.deepmrsegapplication" />
+  </extension> -->
+
+  <extension point="org.blueberry.ui.intro">
+    <intro id="org.mitk.qt.deepmrsegapplicationintro"
+      class="QmitkDeepMRSegIntroPart"
+      role="editor"/>
+    <introProductBinding
+      productId="upenn.cbica.deepmrseg.application.deepmrseg"
+      introId="org.mitk.qt.deepmrsegapplicationintro"/>
+  </extension>
+
+  <extension point="org.blueberry.ui.perspectives">
+    <perspective
+      id="org.mitk.deepmrsegapp.defaultperspective"
+      name="Research"
+      class="QmitkDeepMRSegDefaultPerspective"
+      icon="resources/icon_research.xpm">
+    </perspective>
+    <!-- <perspective
+      id="org.mitk.deepmrsegapp.perspectives.editor"
+      name="Viewer"
+      class="QmitkdeepmrsegEditorPerspective"
+      icon="resources/perspectives/viewer_icon.png">
+    </perspective>
+    <perspective
+      id="org.mitk.deepmrsegapp.perspectives.visualization"
+      name="Visualization"
+      class="QmitkdeepmrsegVisualizationPerspective"
+      icon="resources/perspectives/eye.png">
+    </perspective> -->
+  </extension>
+
+   <extension point="org.blueberry.ui.preferencePages">
+     <page
+       id="org.blueberry.ui.preferencePages.Style"
+       name="Themes"
+       category="org.mitk.GeneralPreferencePage"
+       class="berry::ExtensionFactory:stylePreferencePage">
+       <keywordreference id="org.blueberry.ui.style"/>
+     </page>
+     <page
+       id="org.blueberry.ui.preferencePages.Perspectives"
+       name="Perspectives"
+       category="org.mitk.GeneralPreferencePage"
+       class="berry::ExtensionFactory:perspectivesPreferencePage">
+       <keywordreference id="org.blueberry.ui.perspectives"/>
+     </page>
+   </extension>
+</plugin>

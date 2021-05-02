@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-  <extension id="org.mitk.qt.deepmrsegapplication" point="org.blueberry.osgi.applications">
+  <extension id="upenn.cbica.deepmrsegapplication" point="org.blueberry.osgi.applications">
     <application>
       <run class="QmitkDeepMRSegApplication"/>
     </application>
   </extension>
 
-  <extension id="captk" point="org.blueberry.core.runtime.products">
+<!--   <extension id="captk" point="org.blueberry.core.runtime.products">
     <product name="CaPTk 2" application="org.mitk.qt.captkapplication" />
-  </extension>
+  </extension> -->
   
-  <extension id="deepmrseg" point="org.blueberry.core.runtime.products">
-    <product name="DeepMRSeg" application="org.mitk.qt.deepmrsegapplication" />
+    <extension id="deepmrseg" point="org.blueberry.core.runtime.products">
+    <product name="DeepMRSegk" application="upenn.cbica.deepmrsegapplication" />
   </extension>
 
 <!--   <extension id="incise" point="org.blueberry.core.runtime.products">
-    <product name="InciSe" application="org.mitk.qt.deepmrsegapplication" />
+    <product name="InciSe" application="org.mitk.qt.captkapplication" />
   </extension> -->
 
   <!-- <extension id="fiberfox" point="org.blueberry.core.runtime.products">
-    <product name="MITK Fiberfox" application="org.mitk.qt.deepmrsegapplication" />
+    <product name="MITK Fiberfox" application="org.mitk.qt.captkapplication" />
   </extension> -->
 
   <extension point="org.blueberry.ui.intro">
@@ -40,15 +40,15 @@
       icon="resources/icon_research.xpm">
     </perspective>
     <!-- <perspective
-      id="org.mitk.deepmrsegapp.perspectives.editor"
+      id="org.mitk.captkapp.perspectives.editor"
       name="Viewer"
-      class="QmitkdeepmrsegEditorPerspective"
+      class="QmitkCaPTkEditorPerspective"
       icon="resources/perspectives/viewer_icon.png">
     </perspective>
     <perspective
-      id="org.mitk.deepmrsegapp.perspectives.visualization"
+      id="org.mitk.captkapp.perspectives.visualization"
       name="Visualization"
-      class="QmitkdeepmrsegVisualizationPerspective"
+      class="QmitkCaPTkVisualizationPerspective"
       icon="resources/perspectives/eye.png">
     </perspective> -->
   </extension>

@@ -16,7 +16,7 @@ https://github.com/CBICA/InciSe/blob/main/LICENSE
 #include <QMenuBar>
 
 const QString QmitkDeepMRSegAppWorkbenchAdvisor::DEFAULT_PERSPECTIVE_ID =
-    "org.mitk.deepmrseg.defaultperspective";
+    "org.mitk.deepmrsegapp.defaultperspective";
 
 void
 QmitkDeepMRSegAppWorkbenchAdvisor::Initialize(berry::IWorkbenchConfigurer::Pointer configurer)
@@ -46,7 +46,7 @@ QmitkDeepMRSegAppWorkbenchAdvisor::Initialize(berry::IWorkbenchConfigurer::Point
   //               "UPenn"
   //           );
   //           // msgError.setIcon(QMessageBox::Critical);
-  //           msgError.setWindowTitle("DeepMRSeg");
+  //           msgError.setWindowTitle("CaPTk");
   //           msgError.exec();
   //         }
   //       );
@@ -78,7 +78,7 @@ QmitkDeepMRSegAppWorkbenchAdvisor::CreateWorkbenchWindowAdvisor(
 
   advisor->SetWindowIcon(":/upenn.cbica.deepmrseg.application/icon.png");
 
-  m_WorkbenchWindowConfigurer = configurer; // Used for changing "about" to DeepMRSeg's
+  m_WorkbenchWindowConfigurer = configurer; // Used for changing "about" to CaPTk's
 
   return advisor;
 }

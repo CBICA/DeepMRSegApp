@@ -17,10 +17,10 @@ void QmitkDeepMRSegDefaultPerspective::CreateInitialLayout(berry::IPageLayout::P
   QString editorArea = layout->GetEditorArea();
 
   // Show interactive segmentation by default. In the future change this to a 
-  // non-closable "Start" menu of DeepMRSeg, that also offers shortcuts
+  // non-closable "Start" menu of CaPTk, that also offers shortcuts
   // for different perspectives for Brain, Breast, Lung Cancer etc
   layout->AddView(
-    "upenn.cbica.DeepMRSeg.views.interactivesegmentation", berry::IPageLayout::RIGHT, 
+    "upenn.cbica.captk.views.interactivesegmentation", berry::IPageLayout::RIGHT, 
     0.6f, editorArea
   );
 

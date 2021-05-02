@@ -14,7 +14,7 @@ class QmitkDeepMRSegAppWorkbenchAdvisor: public berry::QtWorkbenchAdvisor
 {
 public:
 
-  static const QString DEFAULT_PERSPECTIVE_ID; // = "org.mitk.DeepMRSegapp.defaultperspective"
+  static const QString DEFAULT_PERSPECTIVE_ID; 
 
   void Initialize(berry::IWorkbenchConfigurer::Pointer configurer) override;
 

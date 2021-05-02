@@ -11,6 +11,6 @@ void QmitkDeepMRSegEditorPerspective::CreateInitialLayout(berry::IPageLayout::Po
 {
   layout->GetEditorArea();
 
-  layout->AddPerspectiveShortcut("org.mitk.deepmrseg.defaultperspective");
+  layout->AddPerspectiveShortcut("org.mitk.deepmrsegapp.defaultperspective");
   layout->AddPerspectiveShortcut("org.mitk.deepmrseg.perspectives.visualization");
 }

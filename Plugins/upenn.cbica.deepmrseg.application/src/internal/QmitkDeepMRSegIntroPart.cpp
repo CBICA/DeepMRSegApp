@@ -168,7 +168,7 @@ QmitkDeepMRSegIntroPart::~QmitkDeepMRSegIntroPart()
   if (this->GetIntroSite()->GetPage()->GetPerspective()->GetId()
     == "org.mitk.deepmrseg.perspectives.editor" && !this->GetIntroSite()->GetPage()->GetWorkbenchWindow()->GetWorkbench()->IsClosing())
     {
-    berry::IPerspectiveDescriptor::Pointer perspective = this->GetIntroSite()->GetWorkbenchWindow()->GetWorkbench()->GetPerspectiveRegistry()->FindPerspectiveWithId("org.mitk.DeepMRSeg.perspectives.editor");
+    berry::IPerspectiveDescriptor::Pointer perspective = this->GetIntroSite()->GetWorkbenchWindow()->GetWorkbench()->GetPerspectiveRegistry()->FindPerspectiveWithId("org.mitk.deepmrseg.perspectives.editor");
     if (perspective)
     {
       this->GetIntroSite()->GetPage()->SetPerspective(perspective);
@@ -192,7 +192,7 @@ void QmitkDeepMRSegIntroPart::CreateQtPartControl(QWidget* parent)
     auto page = new QmitkWebEnginePage(this, parent);
     m_Impl->View->setPage(page);
 
-    QUrl urlQtResource(QString("qrc:/upenn.cbica.deepmrseg.DeepMRSegwelcomescreen/DeepMRSegwelcomeview.html"),  QUrl::TolerantMode );
+    QUrl urlQtResource(QString("qrc:/upenn.cbica.captk.captkwelcomescreen/captkwelcomeview.html"),  QUrl::TolerantMode );
     m_Impl->View->load( urlQtResource );
 
     // adds the webview as a widget

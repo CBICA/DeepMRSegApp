@@ -33,6 +33,6 @@ void QmitkDeepMRSegVisualizationPerspective::CreateInitialLayout(berry::IPageLay
   // Adding the entry for the image navigator to the Windows->"Show View" menu
   layout->AddShowViewShortcut("org.mitk.views.imagenavigator");
 
-  layout->AddPerspectiveShortcut("org.mitk.deepmrseg.defaultperspective");
+  layout->AddPerspectiveShortcut("org.mitk.deepmrsegapp.defaultperspective");
   layout->AddPerspectiveShortcut("org.mitk.deepmrseg.perspectives.editor");
 }

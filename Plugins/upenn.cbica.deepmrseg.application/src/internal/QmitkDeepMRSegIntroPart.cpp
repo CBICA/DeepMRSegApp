@@ -192,7 +192,7 @@ void QmitkDeepMRSegIntroPart::CreateQtPartControl(QWidget* parent)
     auto page = new QmitkWebEnginePage(this, parent);
     m_Impl->View->setPage(page);
 
-    QUrl urlQtResource(QString("qrc:/upenn.cbica.captk.captkwelcomescreen/captkwelcomeview.html"),  QUrl::TolerantMode );
+    QUrl urlQtResource(QString("qrc:/upenn.cbica.deepmrseg.deepmrsegwelcomescreen/deepmrsegwelcomeview.html"),  QUrl::TolerantMode );
     m_Impl->View->load( urlQtResource );
 
     // adds the webview as a widget

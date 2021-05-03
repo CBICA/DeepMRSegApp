@@ -63,7 +63,7 @@ function Button(moduleName, moduleLink, picFilename, moduleDescr){
   this.bttnID = "bttn" + moduleName.replace(/\s/g,'');
   this.modName = moduleName;
   this.modLink = moduleLink;
-  this.picPath = "qrc:/upenn.cbica.captk.captkwelcomescreen/pics/" + picFilename;
+  this.picPath = "qrc:/upenn.cbica.deepmrseg.deepmrsegwelcomescreen/pics/" + picFilename;
   this.modDescr = moduleDescr;
 
   // Methods

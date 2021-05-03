@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/upenn.cbica.DeepMRSeg.DeepMRSegwelcomescreen">
+    <qresource prefix="/upenn.cbica.deepmrseg.deepmrsegwelcomescreen">
         <file>style.css</file>
         <file>function.js</file>
         <file>pics/background.jpg</file>
@@ -8,9 +8,9 @@
         <file>pics/button_mitka.png</file>
         <file>pics/button_mitk.png</file>
         <file>pics/WelcomeMITK.png</file>
-        <file>DeepMRSegwelcomeview.html</file>
+        <file>deepmrsegwelcomeview.html</file>
     </qresource>
-    <qresource prefix="/upenn.cbica.DeepMRSeg.DeepMRSegwelcomescreen.welcome.tutorial">
+    <qresource prefix="/upenn.cbica.deepmrseg.deepmrsegwelcomescreen.welcome.tutorial">
         <file>WelcomePresentation.html</file>
         <file>js/reveal.js</file>
         <file>css/print/paper.css</file>

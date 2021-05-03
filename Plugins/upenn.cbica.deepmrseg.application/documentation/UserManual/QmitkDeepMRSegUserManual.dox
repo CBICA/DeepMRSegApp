@@ -1,9 +1,9 @@
 /**
-\page org_captk Using CaPTk
+\page org_captk Using DeepMRSeg
 
-\section QMitkCaPTkManualOverview  What is CaPTk
+\section QMitkCaPTkManualOverview  What is DeepMRSeg
 
-This version of CaPTk is based on MITK
+This version of DeepmRSeg is based on MITK
 
 For a basic guide to MITK see \ref MITKUserManualPage .
 

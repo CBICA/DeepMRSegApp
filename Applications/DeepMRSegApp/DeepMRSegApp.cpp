@@ -41,6 +41,7 @@ int main(int argc, char **argv)
   app.setPreloadLibraries(preloadLibs);
 
   app.setProperty(mitk::BaseApplication::PROP_PRODUCT, "upenn.cbica.deepmrseg.application.deepmrseg"); 
+  //app.setProperty(mitk::BaseApplication::PROP_PRODUCT, "upenn.cbica.captk.application.captk"); 
   //app.setProperty(mitk::BaseApplication::PROP_PRODUCT, "upenn.cbica.application.deepmrsegapp");
   //app.setProperty(mitk::BaseApplication::PROP_PRODUCT, "org.mitk.gui.qt.extapplication.workbench");
   // app.setProperty(mitk::BaseApplication::PROP_APPLICATION, "org.mitk.qt.coreapplication"); // Simple

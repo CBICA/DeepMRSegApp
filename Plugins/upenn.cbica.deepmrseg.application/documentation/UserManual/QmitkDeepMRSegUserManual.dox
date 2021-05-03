@@ -1,0 +1,10 @@
+/**
+\page org_captk Using DeepMRSeg
+
+\section QMitkCaPTkManualOverview  What is DeepMRSeg
+
+This version of DeepmRSeg is based on MITK
+
+For a basic guide to MITK see \ref MITKUserManualPage .
+
+*/

@@ -522,7 +522,7 @@ void QmitkExtWorkbenchWindowAdvisor::PostWindowCreate()
   mainWindow->setContextMenuPolicy(Qt::PreventContextMenu);
 
   // Load icon theme
-  QIcon::setThemeSearchPaths(QStringList() << QStringLiteral(":/upenn_cbica_captk_icons/icons/"));
+  QIcon::setThemeSearchPaths(QStringList() << QStringLiteral(":/upenn_cbica_deepmrseg_icons/icons/"));
   QIcon::setThemeName(QStringLiteral("awesome"));
 
   // ==== Application menu ============================
@@ -536,7 +536,7 @@ void QmitkExtWorkbenchWindowAdvisor::PostWindowCreate()
   menuBar->setNativeMenuBar(false);
 #endif
 
-  auto basePath = QStringLiteral(":/upenn_cbica_captk_icons/icons/awesome/scalable/actions/");
+  auto basePath = QStringLiteral(":/upenn_cbica_deepmrseg_icons/icons/awesome/scalable/actions/");
 
   auto fileOpenAction = new QmitkFileOpenAction(berry::QtStyleManager::ThemeIcon(basePath + "document-open.svg"), window);
   fileOpenAction->setShortcut(QKeySequence::Open);
@@ -727,7 +727,7 @@ void QmitkExtWorkbenchWindowAdvisor::PostWindowCreate()
   mainActionsToolBar->setToolButtonStyle ( Qt::ToolButtonTextBesideIcon );
 #endif
 
-  basePath = QStringLiteral(":/upenn.cbica.captk.ui/");
+  basePath = QStringLiteral(":/upenn.cbica.deepmrseg.ui/");
   imageNavigatorAction = new QAction(berry::QtStyleManager::ThemeIcon(basePath + "image_navigator.svg"), "&Image Navigator", nullptr);
   bool imageNavigatorViewFound = window->GetWorkbench()->GetViewRegistry()->Find("org.mitk.views.imagenavigator");
 
@@ -756,7 +756,7 @@ void QmitkExtWorkbenchWindowAdvisor::PostWindowCreate()
     imageNavigatorAction->setToolTip("Toggle image navigator for navigating through image");
   }
 
-  viewNavigatorAction = new QAction(berry::QtStyleManager::ThemeIcon(QStringLiteral(":/upenn.cbica.captk.ui/view-manager.svg")),"&View Navigator", nullptr);
+  viewNavigatorAction = new QAction(berry::QtStyleManager::ThemeIcon(QStringLiteral(":/upenn.cbica.deepmrseg.ui/view-manager.svg")),"&View Navigator", nullptr);
   viewNavigatorFound = window->GetWorkbench()->GetViewRegistry()->Find("org.mitk.views.viewnavigatorview");
   if (viewNavigatorFound)
   {
@@ -1105,7 +1105,7 @@ void QmitkExtWorkbenchWindowAdvisorHack::onIntro()
   {
     QRegExp reg("(.*)<title>(\\n)*");
     QRegExp reg2("(\\n)*</title>(.*)");
-    QFile file(":/upenn.cbica.captk.ui/index.html");
+    QFile file(":/upenn.cbica.deepmrseg.ui/index.html");
     file.open(QIODevice::ReadOnly | QIODevice::Text); //text file only for reading
 
     QString text = QString(file.readAll());
@@ -1196,7 +1196,7 @@ LICENSE: <a href=\"https://www.med.upenn.edu/sbia/software-agreement.html\">http
           QMessageBox::NoButton,
           QMessageBox::NoButton);
   mb.setTextFormat(Qt::RichText);
-  QPixmap upennIcon(":/upenn.cbica.captk.ui/upenn.svg");
+  QPixmap upennIcon(":/upenn.cbica.deepmrseg.ui/upenn.svg");
   upennIcon = upennIcon.scaled(125, 108);
   mb.setIconPixmap(upennIcon);
   mb.exec();
@@ -1239,6 +1239,9 @@ QString QmitkExtWorkbenchWindowAdvisor::ComputeTitle()
     // instead of the product name, we use a custom variable for now
     title = productName;
   }
+
+  // deepmrseg change - we don't want to show mitk version
+  this->showMitkVersionInfo = false;
 
   if(showMitkVersionInfo)
   {

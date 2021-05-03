@@ -23,7 +23,7 @@ static berry::IPreferences::Pointer GetPreferences()
     berry::IPreferences::Pointer systemPreferences = preferencesService->GetSystemPreferences();
 
     if (systemPreferences.IsNotNull())
-      return systemPreferences->Node("/upenn.cbica.captk.ui.externalprograms");
+      return systemPreferences->Node("/upenn.cbica.deepmrseg.ui.externalprograms");
   }
 
   mitkThrow();

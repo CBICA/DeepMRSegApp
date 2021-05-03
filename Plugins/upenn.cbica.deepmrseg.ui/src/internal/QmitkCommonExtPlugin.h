@@ -14,7 +14,7 @@ https://github.com/CBICA/InciSe/blob/main/LICENSE
 class QmitkCommonExtPlugin : public QObject, public ctkPluginActivator
 {
   Q_OBJECT
-  Q_PLUGIN_METADATA(IID "upenn_cbica_captk_ui")
+  Q_PLUGIN_METADATA(IID "upenn_cbica_deepmrseg_ui")
   Q_INTERFACES(ctkPluginActivator)
 
 public:

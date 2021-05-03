@@ -40,29 +40,29 @@ void QmitkExtActionBarAdvisor::MakeActions(berry::IWorkbenchWindow* window)
 {
   QAction* fileOpenAction = new QmitkFileOpenAction(
                               QIcon::fromTheme("document-open",
-                                               QIcon(":/upenn_cbica_captk_icons/icons/tango/scalable/actions/document-open.svg")),
+                                               QIcon(":/upenn_cbica_deepmrseg_icons/icons/tango/scalable/actions/document-open.svg")),
                               window);
   fileOpenAction->setShortcut(QKeySequence::Open);
   this->Register(fileOpenAction, berry::IWorkbenchCommandConstants::FILE_OPEN);
 
   QAction* fileSaveAction = new QmitkFileSaveAction(
-                              QIcon(":/upenn.cbica.captk.ui/Save_48.png"),
+                              QIcon(":/upenn.cbica.deepmrseg.ui/Save_48.png"),
                               window);
   fileSaveAction->setShortcut(QKeySequence::Save);
   this->Register(fileSaveAction, berry::IWorkbenchCommandConstants::FILE_SAVE);
 
   QAction* fileSaveProjectAction = new QmitkExtFileSaveProjectAction(window);
   fileSaveProjectAction->setIcon(QIcon::fromTheme("document-save",
-                                                  QIcon(":/upenn_cbica_captk_icons/icons/tango/scalable/actions/document-save.svg")));
+                                                  QIcon(":/upenn_cbica_deepmrseg_icons/icons/tango/scalable/actions/document-save.svg")));
   this->Register(fileSaveProjectAction, mitk::WorkbenchCommandConstants::PROJECT_SAVE);
 
   QAction* closeProjectAction = new QmitkCloseProjectAction(window);
   closeProjectAction->setIcon(QIcon::fromTheme("edit-delete",
-                                               QIcon(":/upenn_cbica_captk_icons/icons/tango/scalable/actions/edit-delete.svg")));
+                                               QIcon(":/upenn_cbica_deepmrseg_icons/icons/tango/scalable/actions/edit-delete.svg")));
   this->Register(closeProjectAction, mitk::WorkbenchCommandConstants::PROJECT_CLOSE);
 
   QAction* fileExitAction = new QmitkFileExitAction(window);
-  fileExitAction->setIcon(QIcon::fromTheme("system-log-out", QIcon(":/upenn_cbica_captk_icons/icons/tango/scalable/actions/system-log-out.svg")));
+  fileExitAction->setIcon(QIcon::fromTheme("system-log-out", QIcon(":/upenn_cbica_deepmrseg_icons/icons/tango/scalable/actions/system-log-out.svg")));
   fileExitAction->setShortcut(QKeySequence::Quit);
   this->Register(fileExitAction, mitk::WorkbenchCommandConstants::FILE_EXIT);
 }

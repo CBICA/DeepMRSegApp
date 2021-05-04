@@ -76,6 +76,7 @@ QmitkDeepMRSegAppWorkbenchAdvisor::CreateWorkbenchWindowAdvisor(
   excludeViews.push_back( "org.blueberry.ui.internal.introview" );
   advisor->SetViewExcludeList(excludeViews);
 
+  //title bar icon
   advisor->SetWindowIcon(":/upenn.cbica.deepmrseg.application/icon.png");
 
   m_WorkbenchWindowConfigurer = configurer; // Used for changing "about" to CaPTk's

@@ -7,7 +7,7 @@
     <view id="upenn.cbica.deepmrseg.view"
       name="DeepMRSeg"
       category="CBICA"
-      icon="resources/icon1.svg"
+      icon="resources/dmrs-logo.svg"
       class="QDeepMRSegView" />
 
   </extension>

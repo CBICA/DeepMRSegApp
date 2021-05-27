@@ -126,7 +126,36 @@ print("deepmrseg run")
 #deepmrseg specific stuff ends here
 
 #read the output image as simple itk image from pre-defined location
-reader = sitk.ImageFileReader()
-reader.SetFileName ( outPath )
-out_image = reader.Execute()
-print("result read as simple itk image")
+#reader = sitk.ImageFileReader()
+#reader.SetFileName ( outPath )
+#out_image = reader.Execute()
+#print("result read as simple itk image")
+
+#resultnibobj.to_filename( outPath )
+#print("nibabel result saved")
+
+# print('in_image')
+# print(in_image)
+# print(in_image.GetPixelIDTypeAsString())
+
+# print('creating out_image object')
+# out_image = sitk.GetImageFromArray( resultnibobj.get_fdata().transpose() )
+# out_image.CopyInformation(in_image)
+# print(out_image.GetPixelIDTypeAsString())
+
+# print('Setting metadata')
+# for k in in_image.GetMetaDataKeys():
+	# out_image.SetMetaData( k,in_image.GetMetaData(k) )
+	# print(k,in_image.GetMetaData(k),out_image.GetMetaData(k))
+
+# print('setting datatype')
+# out_image.SetMetaData('datatype',sitk.sitkUInt8)
+
+# print('out_image')
+# print(out_image)
+
+# print('writing sitk out_image')
+# sitk.WriteImage( out_image, outPath )
+
+out_image = nibabel2sitk(in_image,resultnibobj)
+

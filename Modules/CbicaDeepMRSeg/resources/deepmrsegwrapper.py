@@ -19,6 +19,21 @@ import sitk2nibabel
 print("wrapper called") # info for mitk debugging
 _sys.stdout.flush()
 
+# function to convert nibabel image produced by DeepMRSeg to simpleitk image
+def nibabel2sitk(refimg,nibimg):
+	sitkimage = sitk.GetImageFromArray(nibimg.get_data().transpose())
+	sitkimage.CopyInformation(refimg)
+	print(sitkimage.GetPixelIDTypeAsString())
+
+	#cast to same type as refimage
+	sitkimage = sitk.Cast(sitkimage, refimg.GetPixelID())
+
+	print('Setting metadata')
+	for k in refimg.GetMetaDataKeys():
+		sitkimage.SetMetaData( k,refimg.GetMetaData(k) )
+		
+	return sitkimage
+	
 # function to write input data_list as expected by DeepMRSeg
 def csvwriter(fname, data_list):
 	import csv

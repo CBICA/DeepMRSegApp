@@ -37,9 +37,17 @@ for checkpoint in _os.listdir( mdlPath ):
     print('cppath',cppath)
     deepmrseg_test.load_model( allmodels,cppath )
 
+#csv prep
+roi_indices = utils.get_roi_indices( "C:\\workspace\\projects\\DeepMRSegApp\\Modules\\CbicaDeepMRSeg\\resources\\Lists\\SkullStripping_ROI_Indices.csv" )
+ 
 #_sys.exit(0)
 #convert sitk to nibabel image
 nibObj = sitk2nibabel.SimpleITKAsNibabel(in_image)
+print('nibObj',nibObj)
+
+#convert sitk2nibabel class type to nibabel.Nifti1Image
+print('changing nibObj class type')
+nibObj.__class__ = nibabel.Nifti1Image
 print('nibObj',nibObj)
 
 #save the incoming simple itk image to pre-defined location
@@ -97,13 +105,13 @@ outPath = predefinedTempPath + "../Out/test_1_label.nii.gz"
 #call DeepMRSeg
 #deepmrseg_test._main()
 
-print('calling predictClasses')
+print('calling predict_classes')
 #call predecitClasses
-resultnibobj = deepmrseg_test.predictClasses( refImg=nibObj,
-    otherImg=None,
+resultnibobj = deepmrseg_test.predict_classes( refImg=nibObj,
+    otherImg=[],
     num_classes=2,
     allmodels=allmodels,          ### This is loaded in main()
-    roi_indices="C:\\workspace\\projects\\DeepMRSegApp\\Modules\\CbicaDeepMRSeg\\resources\\Lists\\SkullStripping_ROI_Indices.csv",       ### Path to csv
+    roi_indices=roi_indices,       ### Path to csv
     out=None,
     probs=False,
     rescalemethod='batch',

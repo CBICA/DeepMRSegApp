@@ -8,7 +8,7 @@ Created on Wed Mar 24 19:16:24 2021
 """
 
 #assumes DeepMRSeg is installed 
-from DeepMRSeg import deepmrseg_test
+from DeepMRSeg import deepmrseg_test, utils
 
 import SimpleITK as sitk
 import sys as _sys

@@ -18,10 +18,10 @@ class SimpleITKAsNibabel(nibabel.Nifti1Image):
     interface used by NiftyNet and is read only
     """
 
-    def __init__(self, mysitkobject):
+    def __init__(self, sitkobject):
         
         #self._SimpleITKImage = sitk.ReadImage(filename)
-        self._SimpleITKImage = mysitkobject
+        self._SimpleITKImage = sitkobject
 
         self._header = SimpleITKAsNibabelHeader(self._SimpleITKImage)
         affine = make_affine(self._SimpleITKImage)
@@ -60,4 +60,6 @@ def make_affine(simpleITKImage):
     return affine
 	
 ##usage
-#myNibabelImage = SimpleITKAsNibabel(mySitkImage)
+#nibObj = SimpleITKAsNibabel(sitkImage)
+#print(nibObj)
+#nibabel.save(nibObj, "outnibabel.nii.gz")

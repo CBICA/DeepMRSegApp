@@ -49,6 +49,7 @@ DeepMRSegMediator::DeepMRSegMediator()
 	//default ivars
 	this->m_InputPtr_Flair = nullptr;
 	this->m_InputPtr_T1 = nullptr;
+	this->m_modelDir = QString();
 }
 
 void DeepMRSegMediator::SetT1Image(mitk::Image::Pointer T1ImagePtr)
@@ -69,6 +70,9 @@ void DeepMRSegMediator::Update()
 
 	if(this->m_InputPtr_Flair != nullptr)
 		m_PythonService->CopyToPythonAsSimpleItkImage(this->m_InputPtr_Flair, "in_image_fl");
+
+	if (!this->m_modelDir.isEmpty())
+		m_PythonService->Execute("model_dir=" + std::string("\"") + this->m_modelDir.toStdString() + std::string("\""));
 
 	//calling the python deepmrseg wrapper
 	this->RunSampleScript();
@@ -194,6 +198,11 @@ bool DeepMRSegMediator::ChangeWorkingDirectory(
 		isOk = false;
 	}
 	return isOk;
+}
+
+void DeepMRSegMediator::SetModelDirectory(QString dir)
+{
+	this->m_modelDir = dir;
 }
 
 bool DeepMRSegMediator::IsOkayToRun()

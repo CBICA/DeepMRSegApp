@@ -36,7 +36,7 @@ class SimpleITKAsNibabel(nibabel.Nifti1Image):
 
 class SimpleITKAsNibabelHeader(nibabel.spatialimages.SpatialHeader):
     def __init__(self, image_reference):
-	"""The constructor"""
+	"""The Constructor"""
         super(SimpleITKAsNibabelHeader, self).__init__(
             data_dtype=sitk.GetArrayViewFromImage(image_reference).dtype,
             shape=sitk.GetArrayViewFromImage(image_reference).shape,

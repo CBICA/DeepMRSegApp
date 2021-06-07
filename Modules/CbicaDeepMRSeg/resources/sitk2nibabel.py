@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Loading SimpleITK image as a Nibabel object.
-"""
+"""Loading SimpleITK image as a Nibabel object."""
 #from niftynet.utilities.util_import import check_module
 
 #check_module('SimpleITK')
@@ -11,8 +10,7 @@ import numpy as np
 
 
 class SimpleITKAsNibabel(nibabel.Nifti1Image):
-    """
-    Minimal interface to use a SimpleITK image as if it were
+    """Minimal interface to use a SimpleITK image as if it were
     a nibabel object. Currently only supports the subset of the
     interface used by NiftyNet and is read only.
     """
@@ -58,7 +56,7 @@ def make_affine(simpleITKImage):
     # convert to RAS to match nibabel
     affine = np.matmul(np.diag([-1., -1., 1., 1.]), affine)
     return affine
-	
+
 ##usage
 #nibObj = SimpleITKAsNibabel(sitkImage)
 #print(nibObj)

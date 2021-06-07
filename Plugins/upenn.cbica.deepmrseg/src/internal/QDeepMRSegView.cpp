@@ -79,7 +79,6 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
 
   // signals/slots connections
   connect(m_Controls.pushButtonRun, SIGNAL(clicked()),this, SLOT(OnRunButtonClicked()));
-  connect(m_Controls.pushButtonRunScript, SIGNAL(clicked()),this, SLOT(OnRunScriptClicked()));
   connect(m_Controls.comboBox_tasks, SIGNAL(currentIndexChanged(int)), this, SLOT(OnTaskChanged(int)));
   connect(m_Controls.comboBox_t1, SIGNAL(OnSelectionChanged(const mitk::DataNode *)), this, SLOT(OnT1SelectionChanged(const mitk::DataNode *)));
   connect(m_Controls.comboBox_flair, SIGNAL(OnSelectionChanged(const mitk::DataNode *)), this, SLOT(OnFlairSelectionChanged(const mitk::DataNode *)));
@@ -213,13 +212,6 @@ void QDeepMRSegView::OnRunButtonClicked()
 /************************************************************************/
 /* protected                                                            */
 /************************************************************************/
-
-void QDeepMRSegView::OnRunScriptClicked()
-{
-	MITK_INFO << "  script button clicked ";
-	DeepMRSegMediator dmrs_mediator;
-	dmrs_mediator.RunSampleScript();
-}
 
 void QDeepMRSegView::OnTaskChanged(int index)
 {

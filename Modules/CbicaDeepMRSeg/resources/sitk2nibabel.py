@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Loading SimpleITK image as a Nibabel object.
+"""Loading SimpleITK image as a Nibabel object.
 """
 #from niftynet.utilities.util_import import check_module
 
@@ -19,7 +18,7 @@ class SimpleITKAsNibabel(nibabel.Nifti1Image):
     """
 
     def __init__(self, sitkobject):
-        """The Constructor"""
+        """The Constructor."""
         #self._SimpleITKImage = sitk.ReadImage(filename)
         self._SimpleITKImage = sitkobject
 
@@ -35,7 +34,7 @@ class SimpleITKAsNibabel(nibabel.Nifti1Image):
 
 class SimpleITKAsNibabelHeader(nibabel.spatialimages.SpatialHeader):
     def __init__(self, image_reference):
-        """The Constructor"""
+        """The Constructor."""
         super(SimpleITKAsNibabelHeader, self).__init__(
             data_dtype=sitk.GetArrayViewFromImage(image_reference).dtype,
             shape=sitk.GetArrayViewFromImage(image_reference).shape,

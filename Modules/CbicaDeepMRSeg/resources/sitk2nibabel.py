@@ -16,7 +16,6 @@ class SimpleITKAsNibabel(nibabel.Nifti1Image):
     Minimal interface to use a SimpleITK image as if it were
     a nibabel object. Currently only supports the subset of the
     interface used by NiftyNet and is read only.
-	
     """
 
     def __init__(self, sitkobject):
@@ -36,7 +35,7 @@ class SimpleITKAsNibabel(nibabel.Nifti1Image):
 
 class SimpleITKAsNibabelHeader(nibabel.spatialimages.SpatialHeader):
     def __init__(self, image_reference):
-	"""The Constructor"""
+        """The Constructor"""
         super(SimpleITKAsNibabelHeader, self).__init__(
             data_dtype=sitk.GetArrayViewFromImage(image_reference).dtype,
             shape=sitk.GetArrayViewFromImage(image_reference).shape,

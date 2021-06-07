@@ -171,6 +171,13 @@ void QDeepMRSegView::OnRunButtonClicked()
 		}
 	}
 
+	if (m_Controls.lineEdit_model->text().isEmpty())
+	{
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please select model directory before proceeding.");
+		return;
+
+	}
+
 	//call deepmrsegmediator
 	auto mediator = DeepMRSegMediator();
 	auto mediatorPtr = &mediator;
@@ -180,6 +187,8 @@ void QDeepMRSegView::OnRunButtonClicked()
 	//in case of LesionSegmentation we also set the flair image
 	if (this->m_taskType == TaskType::LESIONSEGMENTATION)
 		mediatorPtr->SetFlairImage(flimage);
+
+	mediatorPtr->SetModelDirectory(m_Controls.lineEdit_model->text());
 
 	mediatorPtr->Update();
 	mitk::Image::Pointer processedImage = mediatorPtr->GetOutput();

@@ -47,9 +47,6 @@ protected slots:
   /** \brief "Do Stuff" Button clicked slot */
   void OnRunButtonClicked();
 
-  /** \brief "Run Script" Button clicked slot */
-  void OnRunScriptClicked();
-
   /** \brief task changed slot */
   void OnTaskChanged(int);
 

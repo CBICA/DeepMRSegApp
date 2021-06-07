@@ -10,6 +10,7 @@ import numpy as np
 
 
 class SimpleITKAsNibabel(nibabel.Nifti1Image):
+
     """Minimal interface to use a SimpleITK image as if it were
     a nibabel object. Currently only supports the subset of the
     interface used by NiftyNet and is read only.

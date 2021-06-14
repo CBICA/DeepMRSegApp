@@ -171,12 +171,11 @@ void QDeepMRSegView::OnRunButtonClicked()
 		}
 	}
 
-
-
 	//call deepmrsegmediator
 	auto mediator = DeepMRSegMediator();
 	auto mediatorPtr = &mediator;
 
+	//check if task type has been selected
 	if (this->m_taskType == TaskType::BRAINEXTRACTION)
 		mediatorPtr->SetT1Image(t1image);
 	else if (this->m_taskType == TaskType::LESIONSEGMENTATION)
@@ -208,6 +207,7 @@ void QDeepMRSegView::OnRunButtonClicked()
 	}
 	mediatorPtr->SetModelDirectory(m_Controls.lineEdit_model->text());
 
+	//long running informational message
 	QMessageBox::information(nullptr, "DeepMRSeg","This application may take a few minutes to run and may become unresponsive during this time. \
 Results will get loaded automatically when ready.");
 
@@ -231,7 +231,7 @@ Results will get loaded automatically when ready.");
 
 	MITK_INFO << "Adding name";
 	// Add a suffix so users can easily see what it is
-	QString name = QString("%1_segmented").arg(selectTask);
+	QString name = QString("%1_segmentation").arg(selectTask);
 	processedImageDataNode->SetName(name.toStdString());
 
 	// Finally, add the new node to the data storage.

@@ -190,6 +190,10 @@ void QDeepMRSegView::OnRunButtonClicked()
 
 	mediatorPtr->SetModelDirectory(m_Controls.lineEdit_model->text());
 
+	QMessageBox::information(nullptr, "DeepMRSeg","This application may take a few minutes to run and may become unresponsive during this time. \
+Results will get loaded automatically when ready.");
+
+	MITK_INFO << " calling python ";
 	mediatorPtr->Update();
 	mitk::Image::Pointer processedImage = mediatorPtr->GetOutput();
 
@@ -201,13 +205,13 @@ void QDeepMRSegView::OnRunButtonClicked()
 	MITK_INFO << "  done";
 
 	auto processedImageDataNode = mitk::DataNode::New(); // Create a new node
-	MITK_INFO << "Adding to a data node";
+	MITK_INFO << "Adding to data node";
 	processedImageDataNode->SetData(processedImage); // assign the inverted image to the node
 
 	auto metaEnum = QMetaEnum::fromType<TaskType>();
 	QString selectTask = metaEnum.valueToKey(this->m_taskType);
 
-	MITK_INFO << "Adding a name";
+	MITK_INFO << "Adding name";
 	// Add a suffix so users can easily see what it is
 	QString name = QString("%1_segmented").arg(selectTask);
 	processedImageDataNode->SetName(name.toStdString());

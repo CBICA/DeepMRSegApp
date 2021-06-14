@@ -171,23 +171,41 @@ void QDeepMRSegView::OnRunButtonClicked()
 		}
 	}
 
+
+
+	//call deepmrsegmediator
+	auto mediator = DeepMRSegMediator();
+	auto mediatorPtr = &mediator;
+
+	if (this->m_taskType == TaskType::BRAINEXTRACTION)
+		mediatorPtr->SetT1Image(t1image);
+	else if (this->m_taskType == TaskType::LESIONSEGMENTATION)
+	{
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "This task doesn't work currently as we are developing this model. Please check back after some time.");
+		return;
+
+		//in case of LesionSegmentation we set the T1 image & flair image
+		mediatorPtr->SetT1Image(t1image);
+		mediatorPtr->SetFlairImage(flimage);
+	}
+	else if (this->m_taskType == TaskType::MUSESEGMENTATION)
+	{
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "This task doesn't work currently as we are developing this model. Please check back after some time.");
+		return;
+	}
+	else if (this->m_taskType == TaskType::SELECTTASK)
+	{
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please select a task before proceeding.");
+		return;
+	}
+
+	//model
 	if (m_Controls.lineEdit_model->text().isEmpty())
 	{
 		QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please select model directory before proceeding.");
 		return;
 
 	}
-
-	//call deepmrsegmediator
-	auto mediator = DeepMRSegMediator();
-	auto mediatorPtr = &mediator;
-
-	mediatorPtr->SetT1Image(t1image);
-
-	//in case of LesionSegmentation we also set the flair image
-	if (this->m_taskType == TaskType::LESIONSEGMENTATION)
-		mediatorPtr->SetFlairImage(flimage);
-
 	mediatorPtr->SetModelDirectory(m_Controls.lineEdit_model->text());
 
 	QMessageBox::information(nullptr, "DeepMRSeg","This application may take a few minutes to run and may become unresponsive during this time. \

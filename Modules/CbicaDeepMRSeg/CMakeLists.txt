@@ -9,3 +9,11 @@ mitk_create_module(
 #add_subdirectory(cmdapps) # -> for cmd app
 
 # You can also add additional commands here as needed.
+
+# Deploy Python files to bin
+# Copy resources to bin in build tree
+file(COPY resources DESTINATION ${CMAKE_BINARY_DIR}/bin/MitkCbicaDeepMRSeg)
+
+# Deploy resources to install tree
+set(_install_DESTINATION "MitkCbicaDeepMRSeg")
+MITK_INSTALL( DIRECTORY resources)

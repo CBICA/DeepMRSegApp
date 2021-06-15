@@ -79,7 +79,6 @@ void QDeepMRSegView::CreateQtPartControl(QWidget *parent)
 
   // signals/slots connections
   connect(m_Controls.pushButtonRun, SIGNAL(clicked()),this, SLOT(OnRunButtonClicked()));
-  connect(m_Controls.pushButtonRunScript, SIGNAL(clicked()),this, SLOT(OnRunScriptClicked()));
   connect(m_Controls.comboBox_tasks, SIGNAL(currentIndexChanged(int)), this, SLOT(OnTaskChanged(int)));
   connect(m_Controls.comboBox_t1, SIGNAL(OnSelectionChanged(const mitk::DataNode *)), this, SLOT(OnT1SelectionChanged(const mitk::DataNode *)));
   connect(m_Controls.comboBox_flair, SIGNAL(OnSelectionChanged(const mitk::DataNode *)), this, SLOT(OnFlairSelectionChanged(const mitk::DataNode *)));
@@ -176,12 +175,43 @@ void QDeepMRSegView::OnRunButtonClicked()
 	auto mediator = DeepMRSegMediator();
 	auto mediatorPtr = &mediator;
 
-	mediatorPtr->SetT1Image(t1image);
+	//check if task type has been selected
+	if (this->m_taskType == TaskType::BRAINEXTRACTION)
+		mediatorPtr->SetT1Image(t1image);
+	else if (this->m_taskType == TaskType::LESIONSEGMENTATION)
+	{
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "This task doesn't work currently as we are developing this model. Please check back after some time.");
+		return;
 
-	//in case of LesionSegmentation we also set the flair image
-	if (this->m_taskType == TaskType::LESIONSEGMENTATION)
+		//in case of LesionSegmentation we set the T1 image & flair image
+		mediatorPtr->SetT1Image(t1image);
 		mediatorPtr->SetFlairImage(flimage);
+	}
+	else if (this->m_taskType == TaskType::MUSESEGMENTATION)
+	{
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "This task doesn't work currently as we are developing this model. Please check back after some time.");
+		return;
+	}
+	else if (this->m_taskType == TaskType::SELECTTASK)
+	{
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please select a task before proceeding.");
+		return;
+	}
 
+	//model
+	if (m_Controls.lineEdit_model->text().isEmpty())
+	{
+		QMessageBox::information(nullptr, "New DeepMRSeg Session", "Please select model directory before proceeding.");
+		return;
+
+	}
+	mediatorPtr->SetModelDirectory(m_Controls.lineEdit_model->text());
+
+	//long running informational message
+	QMessageBox::information(nullptr, "DeepMRSeg","This application may take a few minutes to run and may become unresponsive during this time. \
+Results will get loaded automatically when ready.");
+
+	MITK_INFO << " calling python ";
 	mediatorPtr->Update();
 	mitk::Image::Pointer processedImage = mediatorPtr->GetOutput();
 
@@ -193,15 +223,15 @@ void QDeepMRSegView::OnRunButtonClicked()
 	MITK_INFO << "  done";
 
 	auto processedImageDataNode = mitk::DataNode::New(); // Create a new node
-	MITK_INFO << "Adding to a data node";
+	MITK_INFO << "Adding to data node";
 	processedImageDataNode->SetData(processedImage); // assign the inverted image to the node
 
 	auto metaEnum = QMetaEnum::fromType<TaskType>();
 	QString selectTask = metaEnum.valueToKey(this->m_taskType);
 
-	MITK_INFO << "Adding a name";
+	MITK_INFO << "Adding name";
 	// Add a suffix so users can easily see what it is
-	QString name = QString("%1_segmented").arg(selectTask);
+	QString name = QString("%1_segmentation").arg(selectTask);
 	processedImageDataNode->SetName(name.toStdString());
 
 	// Finally, add the new node to the data storage.
@@ -213,13 +243,6 @@ void QDeepMRSegView::OnRunButtonClicked()
 /************************************************************************/
 /* protected                                                            */
 /************************************************************************/
-
-void QDeepMRSegView::OnRunScriptClicked()
-{
-	MITK_INFO << "  script button clicked ";
-	DeepMRSegMediator dmrs_mediator;
-	dmrs_mediator.RunSampleScript();
-}
 
 void QDeepMRSegView::OnTaskChanged(int index)
 {

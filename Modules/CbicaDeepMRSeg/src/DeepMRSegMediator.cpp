@@ -20,8 +20,18 @@ Use of this source code is governed by license located in license file: https://
 
 DeepMRSegMediator::DeepMRSegMediator()
 {
+	MITK_INFO << " instantiating DeepMRSegMediator ";
+	std::cout << " instantiating DeepMRSegMediator std cout " << std::endl;
+
+	//std::string currentExecutableDir = QCoreApplication::applicationDirPath().toStdString();
+
+	//MITK_INFO << " exe dir: " << currentExecutableDir;
+
+	this->pythonFilesDirFound = false;
+
 	// any setup required goes here
-	pythonFilesDirPath = "C:/workspace/projects/DeepMRSegApp/Modules/CbicaDeepMRSeg/resources";
+	//pythonFilesDirPath = "C:/workspace/projects/DeepMRSegApp/Modules/CbicaDeepMRSeg/resources";
+	//pythonFilesDirPath = currentExecutableDir + "/MitkCbicaDeepMRSeg/resources/";
 
 	//load python service
 	us::ModuleContext* context = us::GetModuleContext();
@@ -49,6 +59,7 @@ DeepMRSegMediator::DeepMRSegMediator()
 	//default ivars
 	this->m_InputPtr_Flair = nullptr;
 	this->m_InputPtr_T1 = nullptr;
+	this->m_modelDir = QString();
 }
 
 void DeepMRSegMediator::SetT1Image(mitk::Image::Pointer T1ImagePtr)
@@ -69,6 +80,9 @@ void DeepMRSegMediator::Update()
 
 	if(this->m_InputPtr_Flair != nullptr)
 		m_PythonService->CopyToPythonAsSimpleItkImage(this->m_InputPtr_Flair, "in_image_fl");
+
+	if (!this->m_modelDir.isEmpty())
+		m_PythonService->Execute("model_dir=" + std::string("\"") + this->m_modelDir.toStdString() + std::string("\""));
 
 	//calling the python deepmrseg wrapper
 	this->RunSampleScript();
@@ -124,7 +138,9 @@ std::string DeepMRSegMediator::LocatePythonFileDir()
 	auto execDir = QCoreApplication::applicationDirPath();
 	MITK_DEBUG << (QString("DEBUG: applicationDirPath == ") + execDir).toStdString();
 
-	QString moduleResourceDir("/MitkDeepMRSegMediator/resources");
+	std::cout << " exe dir: " << execDir.toStdString() << std::endl;
+
+	QString moduleResourceDir("/MitkCbicaDeepMRSeg/resources");
 	QString installResourceDirPath(execDir + moduleResourceDir);
 	QString buildResourceDirPath(execDir + "/.." + moduleResourceDir);
 
@@ -144,6 +160,8 @@ std::string DeepMRSegMediator::LocatePythonFileDir()
 		pythonFilesDirPath = "";
 		pythonFilesDirFound = false;
 	}
+
+	std::cout << " pythonFilesDirPath: " << pythonFilesDirPath << std::endl;
 
 	// return the location found
 	return pythonFilesDirPath;
@@ -196,6 +214,11 @@ bool DeepMRSegMediator::ChangeWorkingDirectory(
 	return isOk;
 }
 
+void DeepMRSegMediator::SetModelDirectory(QString dir)
+{
+	this->m_modelDir = dir;
+}
+
 bool DeepMRSegMediator::IsOkayToRun()
 {
 	bool ok = true; // Assumed ok unless below conditions fail
@@ -224,6 +247,8 @@ void DeepMRSegMediator::RunSampleScript()
 	std::string fullfilepath = pythonFilesDirPath + "/" + entryPointFilename;
 
 	MITK_INFO << "full file path: " << fullfilepath;
+
+	std::cout << " full script path: " << fullfilepath << std::endl;
 
 	// Execute our entrypoint. Any last-second setup or checks should be done before this.
 	m_PythonService->ExecuteScript(fullfilepath);

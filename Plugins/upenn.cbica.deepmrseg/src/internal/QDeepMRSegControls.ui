@@ -147,13 +147,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButtonRunScript">
-     <property name="text">
-      <string>Run Script</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>This application may take a few minutes to run and may become unresponsive during this time. When the results are ready they will get loaded automatically.</string>

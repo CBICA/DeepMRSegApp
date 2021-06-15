@@ -19,6 +19,8 @@ Use of this source code is governed by license located in license file: https://
 #include <mitkIPythonService.h>
 #include <usModuleContext.h>
 
+#include <QString>
+
 
 /** \class DeepMRSegMediator
  *  \brief Mediator for Python based DeepMRSeg application
@@ -46,6 +48,7 @@ public:
 	bool IsOkayToRun();
 	void PassArgsToPython(std::vector<std::string> args); // convenience function
 	bool ChangeWorkingDirectory(std::string newWorkingDirectoryPath);
+	void SetModelDirectory(QString);
 
 protected:
 	mitk::Image::Pointer m_InputPtr_T1, m_InputPtr_Flair;
@@ -63,6 +66,9 @@ protected:
 	void RegisterPackageDir(std::string packageDirPath);
 
 	std::string LocatePythonFileDir();
+
+	//model dir
+	QString m_modelDir;
 };
 
 #endif // ! DeepMRSegMediator_h

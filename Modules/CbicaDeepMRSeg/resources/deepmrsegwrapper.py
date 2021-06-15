@@ -34,16 +34,21 @@ def nibabel2sitk(refimg,nibimg):
 		
 	return sitkimage
 
-mdlPath = "C:\\workspace\\projects\\DeepMRSegApp\\Modules\\CbicaDeepMRSeg\\resources\\Models\\bestmodels\\"
+#model_dir = "C:\\workspace\\projects\\DeepMRSegApp\\Modules\\CbicaDeepMRSeg\\resources\\Models\\bestmodels\\"
 allmodels = []
-#for mDir in mdlPath:
-for checkpoint in _os.listdir( mdlPath ):
-    cppath = _os.path.join( mdlPath + '\\' + checkpoint )
+roi_path = None
+#for mDir in model_dir:
+for checkpoint in _os.listdir( model_dir ):
+    cppath = _os.path.join( model_dir + '\\' + checkpoint )
     print('cppath',cppath)
-    deepmrseg_test.load_model( allmodels,cppath )
+    if(os.path.isdir(cppath)):
+        deepmrseg_test.load_model( allmodels,cppath )
+    elif(os.path.isfile(cppath)):
+        roi_path = cppath
 
 #csv prep
-roi_indices = utils.get_roi_indices( "C:\\workspace\\projects\\DeepMRSegApp\\Modules\\CbicaDeepMRSeg\\resources\\Lists\\SkullStripping_ROI_Indices.csv" )
+#roi_indices = utils.get_roi_indices( "C:\\workspace\\projects\\DeepMRSegApp\\Modules\\CbicaDeepMRSeg\\resources\\Lists\\SkullStripping_ROI_Indices.csv" )
+roi_indices = utils.get_roi_indices( roi_path )
  
 #convert sitk to nibabel image
 nibObj = sitk2nibabel.SimpleITKAsNibabel(in_image)

@@ -11,8 +11,8 @@ These are the platforms we have tested.
 It may also work on other platforms, but will need to built from sources.
 
 ## Prerequisities
--    1) DeepMRSeg Python package must be installed on your system as per the instructions [here](https://github.com/CBICA/DeepMRSeg/blob/main/README.md)
--    2) SimpleITK version 1.2.4 must be installed. You may install it as follow:
+-   1)DeepMRSeg Python package must be installed on your system as per the instructions [here](https://github.com/CBICA/DeepMRSeg/blob/main/README.md).
+-   2)SimpleITK version 1.2.4 must be installed. You may install it as follows:
 ```
 pip install SimpleITK==1.2.4
 ```

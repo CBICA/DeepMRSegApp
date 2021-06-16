@@ -6,13 +6,13 @@ DeepMRSegApp is developed and maintained by the [Center for Biomedical Image Com
 
 ## Supported Platforms
 These are the platforms we have tested. 
--   Windows 10 Enterprise x64
+-   Microsoft Windows 10 (x64)
 
-It may also work on other platforms, but will need to built from sources.
+It may also work on other platforms, but will need to be built from sources.
 
 ## Prerequisities
--   1)DeepMRSeg Python package must be installed on your system as per the instructions [here](https://github.com/CBICA/DeepMRSeg/blob/main/README.md).
--   2)SimpleITK version 1.2.4 must be installed. You may install it as follows:
+-   DeepMRSeg Python package must be installed on your system as per the instructions [here](https://github.com/CBICA/DeepMRSeg/blob/main/README.md).
+-   SimpleITK version 1.2.4 must be installed. You may install it as follows:
 ```
 pip install SimpleITK==1.2.4
 ```
